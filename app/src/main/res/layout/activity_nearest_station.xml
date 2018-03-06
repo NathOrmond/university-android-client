@@ -24,15 +24,14 @@
 
     <ListView
         android:id="@+id/stationList"
-        android:layout_width="363dp"
-        android:layout_height="404dp"
+        android:layout_width="303dp"
+        android:layout_height="140dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" >
+        app:layout_constraintTop_toTopOf="parent">
 
     </ListView>
 
