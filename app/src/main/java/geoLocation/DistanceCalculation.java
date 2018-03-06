@@ -6,6 +6,7 @@ package geoLocation;
 
 public class DistanceCalculation {
 
+
     Double distance, myLat, myLong, stationLat, stationLong;
     public static final Double R = 6372.8; //kilometers
 
@@ -41,4 +42,8 @@ public class DistanceCalculation {
         double b = 2 * Math.asin(Math.sqrt(a));
         distance = R * b;
     }
+
+
+
+
 }
