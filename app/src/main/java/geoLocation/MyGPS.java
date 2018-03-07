@@ -94,7 +94,7 @@ public class MyGPS {
      * GETTERS AND SETTERS FOR LATITUDE AND LONGITUDE
      */
 
-    public void setMyLat(Double myLat){
+    private void setMyLat(Double myLat){
         this.myLat = myLat;
     }
 
@@ -102,7 +102,7 @@ public class MyGPS {
         return myLat;
     }
 
-    public void setMyLong(Double myLong){
+    private void setMyLong(Double myLong){
         this.myLong = myLong;
     }
 

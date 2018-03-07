@@ -19,15 +19,25 @@ public class NearestStationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearest_station);
 
-        updateMyGPS();
-        createStationList();
-        updateList();
+        mainActivity();
 
     }
 
-    
+    /**
+     * Updates main containers on page and runs necessary
+     * subroutines to get data to populate list.
+     */
+
+    private void mainActivity(){
+        updateMyGPS();
+        createStationList();
+        updateList();
+    }
+
 
     private void createStationList(){
+        //Do in seperate class?
+
         //ToDo
         //get nearest station data from srv
         //format data into trainStationList of nearest 5 where each station has a stationName, stationLat, stationLong
@@ -49,8 +59,6 @@ public class NearestStationActivity extends AppCompatActivity {
     }
 
     public void updateLocation(View view) {
-        //ToDo
-        //update myGPS
-        //CommonMethod() - as in OnCreate
+        mainActivity();
     }
 }
