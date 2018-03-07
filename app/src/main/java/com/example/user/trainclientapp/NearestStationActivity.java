@@ -26,7 +26,11 @@ public class NearestStationActivity extends AppCompatActivity {
 
     }
 
-    public void updateLocation(View view) {
+    private void runProg(){
         new URLASyncTask(this, lat, lng);
+    }
+
+    public void updateLocation(View view) {
+
     }
 }
