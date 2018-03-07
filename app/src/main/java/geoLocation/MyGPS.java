@@ -26,11 +26,11 @@ public class MyGPS {
      */
     @SuppressLint("MissingPermission")
     public MyGPS(LocationManager lm, AppCompatActivity activity) {
-        this.locationManager = lm;
-        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
         if(!hasPermissions(activity)){
             requestPermissions(activity);
-        } else if(hasPermissions(activity)) {
+        } else {
+            this.locationManager = lm;
+            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             getLocation();
         }
     }

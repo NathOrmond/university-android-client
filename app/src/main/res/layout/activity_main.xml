@@ -7,13 +7,13 @@
     tools:context="com.example.user.trainclientapp.MainActivity">
 
     <TextView
-        android:id="@+id/textView"
+        android:id="@+id/info"
         android:layout_width="297dp"
         android:layout_height="83dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="124dp"
-        android:text="Welcome to the train client app.  Click the button to proceed to the nearest station page. You can update your location any time by clicking the update button on the nearest stations screen."
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.507"
         app:layout_constraintLeft_toLeftOf="parent"
