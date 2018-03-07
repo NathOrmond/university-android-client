@@ -1,12 +1,14 @@
 package geoLocation;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-
-import com.example.user.trainclientapp.MainActivity;
+import android.support.v7.app.AppCompatActivity;
 
 /**
  * Created by User on 06/03/2018.
@@ -15,20 +17,49 @@ import com.example.user.trainclientapp.MainActivity;
 public class MyGPS {
     Double myLat, myLong;
     LocationManager locationManager;
+    Location location;
 
-    public MyGPS(){
-    }
 
-    public MyGPS(LocationManager lm){
+    /**
+     * Constructor runs private methods checking for permission
+     * Provided permissions given sets Location() to current GPS data.
+     */
+    @SuppressLint("MissingPermission")
+    public MyGPS(LocationManager lm, AppCompatActivity activity) {
         this.locationManager = lm;
+        location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+        if(!hasPermissions(activity)){
+            requestPermissions(activity);
+        } else if(hasPermissions(activity)) {
+            getLocation();
+        }
     }
 
-    public void requestPermissions(MainActivity main) {
-        ActivityCompat.requestPermissions(main, new String[]{
+
+    /**
+     * PERMISSIONS CHECKING METHODS FOR ANDROID
+     */
+
+    private boolean hasPermissions(AppCompatActivity activity){
+        if(ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+            return false;
+
+        } else {
+            return true;
+            }
+        }
+
+    private void requestPermissions(AppCompatActivity activity) {
+        ActivityCompat.requestPermissions(activity, new String[]{
                 "Android.Permission.ACCESS_FINE_LOCATION",
                 "Android.Permission.ACCESS_COARSE_LOCATION"
         },1);
     }
+
+    /**
+     * Sets Location to current location (required for other methods)
+     */
 
     private void getLocation() {
         try {
@@ -43,6 +74,8 @@ public class MyGPS {
 
                 @Override
                 public void onProviderEnabled(String s) {
+                    setMyLat(location.getLatitude());
+                    setMyLong(location.getLongitude());
                 }
 
                 @Override
@@ -54,6 +87,27 @@ public class MyGPS {
         catch(SecurityException e) {
             e.printStackTrace();
         }
+    }
+
+
+    /**
+     * GETTERS AND SETTERS FOR LATITUDE AND LONGITUDE
+     */
+
+    public void setMyLat(Double myLat){
+        this.myLat = myLat;
+    }
+
+    public Double getMyLat(){
+        return myLat;
+    }
+
+    public void setMyLong(Double myLong){
+        this.myLong = myLong;
+    }
+
+    public Double getMyLong(){
+        return myLong;
     }
 
 }

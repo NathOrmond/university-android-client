@@ -22,10 +22,10 @@ public class URLASyncTask extends AsyncTask<String, Integer, String> {
     String urlString = "http://zebedee.kriswelsh.com:8080/stations";
     String lat, lng;
 
-    public URLASyncTask(NearestStationActivity parent, String lat, String lng) {
+    public URLASyncTask(NearestStationActivity parent, String myLat, String myLong) {
         _parent = parent;
-        this.lat = lat;
-        this.lng = lng;
+        this.lat = myLat;
+        this.lng = myLong;
         urlString = urlString + "?lat="+ lat + "&lng=" + lng;
     }
 
@@ -74,7 +74,7 @@ public class URLASyncTask extends AsyncTask<String, Integer, String> {
 
     @Override
     public void onPostExecute(String foo) {
-
+        //return data from srv
     }
 
 }
