@@ -4,11 +4,14 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
 
 import com.example.user.trainclientapp.R;
 import com.example.user.trainclientapp.geolocation.MyGPS;
 import com.example.user.trainclientapp.servernetworking.URLASyncTask;
 import com.example.user.trainclientapp.stationlist.StationListFactory;
+import com.example.user.trainclientapp.stationlist.StationsAdapter;
 import com.example.user.trainclientapp.stationlist.TrainStation;
 
 import java.util.ArrayList;
@@ -26,10 +29,21 @@ public class NearestStationListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearest_station_list);
+        final ListView listview = (ListView) findViewById(R.id.stationList);
 
         updateMyGPS();
         createStationList();
         updateList();
+
+        final StationsAdapter adapter = new StationsAdapter(this, android.R.layout.simple_list_item_1, trainStationArrayList);
+
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+
+                
+            }
+        });
     }
 
 
