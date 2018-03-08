@@ -5,13 +5,18 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
+import java.util.ArrayList;
+
 import geoLocation.MyGPS;
 import networking.URLASyncTask;
+import stationList.StationListFactory;
+import stationList.TrainStation;
 
 public class NearestStationActivity extends AppCompatActivity {
 
 
     LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
+    ArrayList<TrainStation> trainStationArrayList;
     String srvData;
     MyGPS myGPS;
 
@@ -27,12 +32,8 @@ public class NearestStationActivity extends AppCompatActivity {
 
 
     private void createStationList(){
-        //Do in seperate class?
-
-        //ToDo
-        //get nearest station data from srv
-        //format data into trainStationList of nearest 5 where each station has a stationName, stationLat, stationLong
-        //Pass stationList through DistanceCalulation Haversine(ArrayList<TrainStation>()) and populate each array position with calculated distance
+        StationListFactory stationListFactory = new StationListFactory(srvData,  myGPS.getMyLat(), myGPS.getMyLong());
+        trainStationArrayList = stationListFactory.getTrainStationArrayList();
     }
 
     private void updateList(){

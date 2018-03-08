@@ -13,23 +13,18 @@ public class StationListFactory {
     int listLength;
     ArrayList<TrainStation> trainStationArrayList;
 
-    public StationListFactory(String serverRawData){
-        formatSrvData(serverRawData);
+    public StationListFactory(String serverRawData, Double myLat, Double myLong){
+        formatSrvData(serverRawData, myLat, myLong);
     }
 
     public StationListFactory(){
-
     }
 
-    private void formatSrvData(String serverRawData){
+    private void formatSrvData(String serverRawData, Double myLat, Double myLong){
         ServerMessageParser formatting = new ServerMessageParser();
         trainStationArrayList = new ArrayList<TrainStation>();
 
-        for(int i = 0; i < listLength; i++) {
-
-        }
     }
-
 
     public ArrayList<TrainStation> getTrainStationArrayList() {
         return trainStationArrayList;

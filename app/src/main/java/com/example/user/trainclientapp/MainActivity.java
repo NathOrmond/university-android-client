@@ -25,7 +25,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String info(){
-        String info = "Welcome to the train client app. " +
+        String info =
+                "Welcome to the train client app. " +
                 "This app requires permission to location services." +
                 "Please accept any request for the app to have location " +
                 "services on this device." +
