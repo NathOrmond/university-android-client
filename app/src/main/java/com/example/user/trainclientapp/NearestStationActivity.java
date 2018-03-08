@@ -12,6 +12,7 @@ public class NearestStationActivity extends AppCompatActivity {
 
 
     LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
+    String srvData;
     MyGPS myGPS;
 
     @Override
@@ -19,16 +20,6 @@ public class NearestStationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearest_station);
 
-        mainActivity();
-
-    }
-
-    /**
-     * Updates main containers on page and runs necessary
-     * subroutines to get data to populate list.
-     */
-
-    private void mainActivity(){
         updateMyGPS();
         createStationList();
         updateList();
@@ -55,10 +46,16 @@ public class NearestStationActivity extends AppCompatActivity {
     }
 
     private void getNearestStationDataFromSrv(){
-        new URLASyncTask(this, myGPS.getMyLat().toString(), myGPS.getMyLong().toString());
+        new URLASyncTask(this, myGPS.getMyLat().toString(), myGPS.getMyLong().toString()).execute();
+    }
+
+    public void updataData(String newData){
+        srvData =  newData;
     }
 
     public void updateLocation(View view) {
-        mainActivity();
+        updateMyGPS();
+        createStationList();
+        updateList();
     }
 }

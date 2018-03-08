@@ -74,7 +74,7 @@ public class URLASyncTask extends AsyncTask<String, Integer, String> {
 
     @Override
     public void onPostExecute(String foo) {
-        //return data from srv
+        _parent.updataData(foo);
     }
 
 }

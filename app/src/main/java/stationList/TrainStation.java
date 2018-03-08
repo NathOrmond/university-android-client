@@ -1,35 +1,57 @@
 package stationList;
 
-import geoLocation.DistanceCalculation;
-
 /**
  * Created by User on 06/03/2018.
  */
 
 public class TrainStation {
 
-    String stationName, distance, inputString;
-    int listPosition;
-    Double distanceNum;
-
-    DistanceCalculation calculator = new DistanceCalculation();
-
-    public TrainStation(int listPosition){
-        this.listPosition = listPosition;
-    }
+    String stationName, distanceString;
+    Double stationLat, stationLong, distanceNum;
 
     public String getStationName(){
         return stationName;
     }
 
-    public String getDistance(){
-        distance = distanceNum.toString();
-        return distance;
+    public String getDistanceString(){
+        return distanceString;
     }
 
-    private void calculateDistance(){
-        distanceNum = calculator.calculateDistance(inputString);
+    // ---
+
+    public Double getStationLat(){
+        return stationLat;
     }
 
+    public Double getStationLong(){
+        return stationLong;
+    }
 
+    public Double getDistanceNum() {
+        return distanceNum;
+    }
+
+    // ---
+
+    public void setStationName(String stationName){
+        this.stationName = stationName;
+    }
+
+    public void setDistanceString(String distanceString){
+        this.distanceString = distanceString;
+    }
+
+    // ---
+
+    public void  setStationLat(Double stationLat){
+        this.stationLat = stationLat;
+    }
+
+    public void setStationLong(Double stationLong) {
+        this.stationLong = stationLong;
+    }
+
+    public void setDistanceNum(Double distanceNum){
+        this.distanceNum = distanceNum;
+    }
 }

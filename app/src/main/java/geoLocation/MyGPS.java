@@ -37,7 +37,7 @@ public class MyGPS {
 
 
     /**
-     * PERMISSIONS CHECKING METHODS FOR ANDROID
+     * PERMISSIONS CHECKING METHOD FOR ANDROID
      */
 
     private boolean hasPermissions(AppCompatActivity activity){
@@ -49,6 +49,10 @@ public class MyGPS {
             return true;
             }
         }
+
+    /**
+     * POP UP DIALOGUE REQUESTING GPS PERMISSION
+     */
 
     private void requestPermissions(AppCompatActivity activity) {
         ActivityCompat.requestPermissions(activity, new String[]{
