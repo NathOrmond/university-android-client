@@ -18,6 +18,7 @@ public class NearestStationActivity extends AppCompatActivity {
     LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
     ArrayList<TrainStation> trainStationArrayList;
     String srvData;
+    int listLength;
     MyGPS myGPS;
 
     @Override
@@ -32,7 +33,7 @@ public class NearestStationActivity extends AppCompatActivity {
 
 
     private void createStationList(){
-        StationListFactory stationListFactory = new StationListFactory(srvData,  myGPS.getMyLat(), myGPS.getMyLong());
+        StationListFactory stationListFactory = new StationListFactory(srvData,  myGPS.getMyLat(), myGPS.getMyLong(), listLength);
         trainStationArrayList = stationListFactory.getTrainStationArrayList();
     }
 
