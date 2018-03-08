@@ -1,4 +1,4 @@
-package geoLocation;
+package com.example.user.trainclientapp.geolocation;
 
 /**
  * Created by Nathan on 06/03/2018.

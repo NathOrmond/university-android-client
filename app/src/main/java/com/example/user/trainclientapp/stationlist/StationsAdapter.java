@@ -1,4 +1,4 @@
-package stationList;
+package com.example.user.trainclientapp.stationlist;
 
 import android.content.Context;
 import android.widget.ArrayAdapter;

@@ -1,7 +1,7 @@
-package genericMethods;
+package com.example.user.trainclientapp.servermessageparsing;
 
-import geoLocation.DistanceCalculation;
-import stationList.TrainStation;
+import com.example.user.trainclientapp.geolocation.DistanceCalculation;
+import com.example.user.trainclientapp.stationlist.TrainStation;
 
 /**
  * Created by Nathan on 06/03/2018.

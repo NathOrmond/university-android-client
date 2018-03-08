@@ -1,16 +1,17 @@
-package com.example.user.trainclientapp;
+package com.example.user.trainclientapp.activities;
 
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
-import java.util.ArrayList;
+import com.example.user.trainclientapp.R;
+import com.example.user.trainclientapp.geolocation.MyGPS;
+import com.example.user.trainclientapp.servernetworking.URLASyncTask;
+import com.example.user.trainclientapp.stationlist.StationListFactory;
+import com.example.user.trainclientapp.stationlist.TrainStation;
 
-import geoLocation.MyGPS;
-import networking.URLASyncTask;
-import stationList.StationListFactory;
-import stationList.TrainStation;
+import java.util.ArrayList;
 
 public class NearestStationActivity extends AppCompatActivity {
 

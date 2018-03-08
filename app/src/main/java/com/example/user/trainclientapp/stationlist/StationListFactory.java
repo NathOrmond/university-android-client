@@ -1,8 +1,8 @@
-package stationList;
+package com.example.user.trainclientapp.stationlist;
 
 import java.util.ArrayList;
 
-import genericMethods.ServerMessageParser;
+import com.example.user.trainclientapp.servermessageparsing.ServerMessageParser;
 
 /**
  * Created by Nathan on 08/03/2018.

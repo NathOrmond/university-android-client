@@ -1,4 +1,4 @@
-package geoLocation;
+package com.example.user.trainclientapp.geolocation;
 
 import android.Manifest;
 import android.annotation.SuppressLint;

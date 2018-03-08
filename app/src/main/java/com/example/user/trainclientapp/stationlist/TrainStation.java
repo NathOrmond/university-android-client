@@ -1,4 +1,4 @@
-package stationList;
+package com.example.user.trainclientapp.stationlist;
 
 /**
  * Created by User on 06/03/2018.

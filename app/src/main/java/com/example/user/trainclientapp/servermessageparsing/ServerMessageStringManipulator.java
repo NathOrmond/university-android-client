@@ -1,4 +1,4 @@
-package genericMethods;
+package com.example.user.trainclientapp.servermessageparsing;
 
 /**
  * Created by User on 08/03/2018.

@@ -1,8 +1,8 @@
-package networking;
+package com.example.user.trainclientapp.servernetworking;
 
 import android.os.AsyncTask;
 
-import com.example.user.trainclientapp.NearestStationActivity;
+import com.example.user.trainclientapp.activities.NearestStationActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
