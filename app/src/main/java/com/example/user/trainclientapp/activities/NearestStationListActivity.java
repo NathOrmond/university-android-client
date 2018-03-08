@@ -1,5 +1,6 @@
 package com.example.user.trainclientapp.activities;
 
+import android.content.Intent;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -41,7 +42,8 @@ public class NearestStationListActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                
+                Intent startIntent = new Intent(getApplicationContext(), MapActivity.class);
+
             }
         });
     }
