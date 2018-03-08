@@ -35,9 +35,9 @@ public class NearestStationListActivity extends AppCompatActivity {
 
         updateMyGPS();
         createStationList();
-        updateList();
+        updateList(adapter);
 
-        adapter = new StationsAdapter(this, android.R.layout.simple_list_item_1, trainStationArrayList);
+
         listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -56,9 +56,9 @@ public class NearestStationListActivity extends AppCompatActivity {
         trainStationArrayList = stationListFactory.getTrainStationArrayList();
     }
 
-    private void updateList(){
-        //ToDo
-        //Pass completed ArrayList<TrainStation>() to Adapter
+    private void updateList(StationsAdapter adapter){
+        adapter = new StationsAdapter(this, android.R.layout.simple_list_item_1, trainStationArrayList);
+        this.adapter = adapter;
         //Connect Adapter to activity_nearest_station_list_list.xml list container
     }
 
@@ -77,6 +77,6 @@ public class NearestStationListActivity extends AppCompatActivity {
     public void updateLocation(View view) {
         updateMyGPS();
         createStationList();
-        updateList();
+        updateList(adapter);
     }
 }
