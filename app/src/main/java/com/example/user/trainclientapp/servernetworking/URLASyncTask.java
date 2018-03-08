@@ -2,7 +2,7 @@ package com.example.user.trainclientapp.servernetworking;
 
 import android.os.AsyncTask;
 
-import com.example.user.trainclientapp.activities.NearestStationActivity;
+import com.example.user.trainclientapp.activities.NearestStationListActivity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -18,11 +18,11 @@ import java.net.URL;
 
 public class URLASyncTask extends AsyncTask<String, Integer, String> {
 
-    NearestStationActivity _parent;
+    NearestStationListActivity _parent;
     String urlString = "http://zebedee.kriswelsh.com:8080/stations";
     String lat, lng;
 
-    public URLASyncTask(NearestStationActivity parent, String myLat, String myLong) {
+    public URLASyncTask(NearestStationListActivity parent, String myLat, String myLong) {
         _parent = parent;
         this.lat = myLat;
         this.lng = myLong;

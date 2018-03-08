@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void click(View v){
-        Intent startIntent = new Intent(getApplicationContext(), NearestStationActivity.class);
+        Intent startIntent = new Intent(getApplicationContext(), NearestStationListActivity.class);
     }
 
 

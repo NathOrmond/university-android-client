@@ -13,7 +13,7 @@ import com.example.user.trainclientapp.stationlist.TrainStation;
 
 import java.util.ArrayList;
 
-public class NearestStationActivity extends AppCompatActivity {
+public class NearestStationListActivity extends AppCompatActivity {
 
 
     LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -25,7 +25,7 @@ public class NearestStationActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_nearest_station);
+        setContentView(R.layout.activity_nearest_station_list);
 
         updateMyGPS();
         createStationList();
@@ -41,7 +41,7 @@ public class NearestStationActivity extends AppCompatActivity {
     private void updateList(){
         //ToDo
         //Pass completed ArrayList<TrainStation>() to Adapter
-        //Connect Adapter to activity_nearest_station.xml list container
+        //Connect Adapter to activity_nearest_station_list_list.xml list container
     }
 
     private void updateMyGPS(){
