@@ -5,7 +5,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -38,23 +37,11 @@ public class NearestStationListActivity extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.stationList);
 
-
         updateMyGPS();
         createStationList();
         updateList(adapter, listView);
 
 
-
-
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-
-                Intent startIntent = new Intent(getApplicationContext(), MapActivity.class);
-                startActivity(startIntent);
-
-            }
-        });
     }
 
 
@@ -86,5 +73,10 @@ public class NearestStationListActivity extends AppCompatActivity {
         updateMyGPS();
         createStationList();
         updateList(adapter, listView);
+    }
+
+    public void listItemClicked(View view) {
+        Intent startIntent = new Intent(getApplicationContext(), MapActivity.class);
+        startActivity(startIntent);
     }
 }
