@@ -20,7 +20,8 @@ import java.util.ArrayList;
 public class NearestStationListActivity extends AppCompatActivity {
 
 
-    LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
+    Button refreshButton;
+    LocationManager lm;
     ArrayList<TrainStation> trainStationArrayList;
     StationsAdapter adapter;
     ListView listView;
@@ -33,8 +34,8 @@ public class NearestStationListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearest_station_list);
 
-        Button refreshButton = (Button) findViewById(R.id.refreshButton);
-
+        refreshButton = (Button) findViewById(R.id.refreshButton);
+        lm = (LocationManager) getSystemService(LOCATION_SERVICE);
         listView = (ListView) findViewById(R.id.stationList);
 
         updateMyGPS();
