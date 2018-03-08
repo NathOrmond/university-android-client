@@ -9,13 +9,13 @@
 
     <TextView
         android:id="@+id/info"
-        android:layout_width="307dp"
-        android:layout_height="112dp"
+        android:layout_width="330dp"
+        android:layout_height="173dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="72dp"
+        android:layout_marginTop="88dp"
+        android:text="Welcome to the train client app. This app requires permission to location services. Please accept any request for the app to have location services on this device. Click the button to proceed to the nearest station page. You can update your location any time by clicking the update button on the nearest stations screen. Selecting a station from the list will open up directions to the chosen station."
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.508"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -25,7 +25,7 @@
         android:id="@+id/stationButton"
         android:layout_width="200dp"
         android:layout_height="75dp"
-        android:layout_marginBottom="204dp"
+        android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
@@ -35,6 +35,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/info"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.188" />
 
 </android.support.constraint.ConstraintLayout>
