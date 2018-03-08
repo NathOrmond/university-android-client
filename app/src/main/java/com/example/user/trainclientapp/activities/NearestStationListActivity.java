@@ -24,6 +24,7 @@ public class NearestStationListActivity extends AppCompatActivity {
     LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
     ArrayList<TrainStation> trainStationArrayList;
     StationsAdapter adapter;
+    ListView listView;
     String srvData;
     int listLength;
     MyGPS myGPS;
@@ -35,16 +36,17 @@ public class NearestStationListActivity extends AppCompatActivity {
 
         Button refreshButton = (Button) findViewById(R.id.refreshButton);
 
-        final ListView listview = (ListView) findViewById(R.id.stationList);
+        listView = (ListView) findViewById(R.id.stationList);
+
 
         updateMyGPS();
         createStationList();
-        updateList(adapter);
+        updateList(adapter, listView);
 
 
-        listview.setAdapter(adapter);
 
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
@@ -60,10 +62,11 @@ public class NearestStationListActivity extends AppCompatActivity {
         trainStationArrayList = stationListFactory.getTrainStationArrayList();
     }
 
-    private void updateList(StationsAdapter adapter){
+    private void  updateList(StationsAdapter adapter, ListView listView){
         adapter = new StationsAdapter(this, android.R.layout.simple_list_item_1, trainStationArrayList);
         this.adapter = adapter;
-        //Connect Adapter to activity_nearest_station_list_list.xml list container
+        listView.setAdapter(adapter);
+        this.listView = listView;
     }
 
     private void updateMyGPS(){
@@ -81,6 +84,6 @@ public class NearestStationListActivity extends AppCompatActivity {
     public void updateLocation(View view) {
         updateMyGPS();
         createStationList();
-        updateList(adapter);
+        updateList(adapter, listView);
     }
 }
