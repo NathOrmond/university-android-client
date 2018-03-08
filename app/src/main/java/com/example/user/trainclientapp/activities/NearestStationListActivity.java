@@ -51,6 +51,7 @@ public class NearestStationListActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 Intent startIntent = new Intent(getApplicationContext(), MapActivity.class);
+                startActivity(startIntent);
 
             }
         });
