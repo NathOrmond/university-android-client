@@ -29,7 +29,7 @@ public class StationListFactory {
 
         for(int i = 0; i < listLength; i++) {
             station = formatting.createTrainStationForListPos(i,serverRawData);
-            formatting.addStationDistance(station,myLat,myLong);
+            station = formatting.addStationDistance(station,myLat,myLong);
             trainStationArrayList.add(i, station);
         }
 

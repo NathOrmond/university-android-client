@@ -20,19 +20,19 @@ public class ServerMessageParser {
     }
 
     public String extractStationName(int listPosition, String rawServerData){
-        String stationName = "..args";
+        String stationName = "station " + listPosition;
         return stationName;
     }
 
     public Double extractStationLat(int listPosition, String rawServerData){
-        String extractedString = "..args";
+        String extractedString = "100";
         Double stationLat = Double.parseDouble(extractedString);
         this.stationLat = stationLat;
         return stationLat;
     }
 
     public Double extractStationLong(int listPosition, String rawServerData){
-        String extractedString = "..args";
+        String extractedString = "100";
         Double stationLong = Double.parseDouble(extractedString);
         this.stationLong = stationLong;
         return stationLong;
