@@ -22,6 +22,7 @@ public class NearestStationListActivity extends AppCompatActivity {
 
     LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
     ArrayList<TrainStation> trainStationArrayList;
+    StationsAdapter adapter;
     String srvData;
     int listLength;
     MyGPS myGPS;
@@ -36,7 +37,8 @@ public class NearestStationListActivity extends AppCompatActivity {
         createStationList();
         updateList();
 
-        final StationsAdapter adapter = new StationsAdapter(this, android.R.layout.simple_list_item_1, trainStationArrayList);
+        adapter = new StationsAdapter(this, android.R.layout.simple_list_item_1, trainStationArrayList);
+        listview.setAdapter(adapter);
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
