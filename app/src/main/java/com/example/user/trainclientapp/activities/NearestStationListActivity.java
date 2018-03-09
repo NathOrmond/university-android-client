@@ -67,7 +67,16 @@ public class NearestStationListActivity extends AppCompatActivity {
      */
 
     private void getNearestStationDataFromSrv(){
-        new URLASyncTask(this, myGPS.getMyLat().toString(), myGPS.getMyLong().toString()).execute();
+        String latitudeString, longitudeString;
+        if((myLatitude == null) || (myLongitude == null)) {
+            latitudeString ="0";
+            longitudeString="0";
+        } else {
+            latitudeString = myLatitude.toString();
+            longitudeString = myLongitude.toString();
+        }
+
+        new URLASyncTask(this, latitudeString, longitudeString).execute();
     }
 
     /**

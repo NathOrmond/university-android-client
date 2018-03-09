@@ -33,7 +33,6 @@ public class MyGPS {
             requestPermissions(activity);
         } else {
             this.locationManager = lm;
-            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
             requestLocationUpdates();
             updateMyLocation();
         }
@@ -75,13 +74,14 @@ public class MyGPS {
 
         for(String provider : providers) {
             location = locationManager.getLastKnownLocation(provider);
+//            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
             if(location != null) {
                 setMyLat(location.getLatitude());
                 setMyLong(location.getLongitude());
             }
         }
-            
+
     }
 
     private void requestLocationUpdates() {
