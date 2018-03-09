@@ -5,4 +5,7 @@ package com.example.user.trainclientapp.servermessageparsing;
  */
 
 public class ServerMessageStringManipulator {
+    //ToDo
+    //Methods for each compnent.
+    //implement methods in server message parser
 }
