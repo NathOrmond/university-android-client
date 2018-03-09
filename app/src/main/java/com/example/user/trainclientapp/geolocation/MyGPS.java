@@ -8,7 +8,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
+
+import com.example.user.trainclientapp.activities.NearestStationListActivity;
 
 /**
  * Created by User on 06/03/2018.
@@ -25,13 +26,14 @@ public class MyGPS {
      * Provided permissions given sets Location() to current GPS data.
      */
     @SuppressLint("MissingPermission")
-    public MyGPS(LocationManager lm, AppCompatActivity activity) {
+    public MyGPS(LocationManager lm, NearestStationListActivity activity) {
         if(!hasPermissions(activity)){
             requestPermissions(activity);
         } else {
             this.locationManager = lm;
             location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-            getLocation();
+            requestLocationUpdates();
+            updateMyLocation();
         }
     }
 
@@ -40,7 +42,7 @@ public class MyGPS {
      * PERMISSIONS CHECKING METHOD FOR ANDROID
      */
 
-    private boolean hasPermissions(AppCompatActivity activity){
+    private boolean hasPermissions(NearestStationListActivity activity){
         if(ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
         && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             return false;
@@ -54,7 +56,7 @@ public class MyGPS {
      * POP UP DIALOGUE REQUESTING GPS PERMISSION
      */
 
-    private void requestPermissions(AppCompatActivity activity) {
+    private void requestPermissions(NearestStationListActivity activity) {
         ActivityCompat.requestPermissions(activity, new String[]{
                 "Android.Permission.ACCESS_FINE_LOCATION",
                 "Android.Permission.ACCESS_COARSE_LOCATION"
@@ -65,7 +67,12 @@ public class MyGPS {
      * Sets Location to current location (required for other methods)
      */
 
-    private void getLocation() {
+    private void updateMyLocation(){
+        setMyLat(location.getLatitude());
+        setMyLong(location.getLongitude());
+    }
+
+    private void requestLocationUpdates() {
         try {
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
                 @Override
@@ -78,8 +85,6 @@ public class MyGPS {
 
                 @Override
                 public void onProviderEnabled(String s) {
-                    setMyLat(location.getLatitude());
-                    setMyLong(location.getLongitude());
                 }
 
                 @Override

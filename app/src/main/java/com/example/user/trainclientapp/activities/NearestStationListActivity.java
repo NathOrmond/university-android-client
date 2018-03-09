@@ -29,6 +29,7 @@ public class NearestStationListActivity extends AppCompatActivity {
     String srvData;
     int listLength;
     MyGPS myGPS;
+    Double myLatitude, myLongitude;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,8 @@ public class NearestStationListActivity extends AppCompatActivity {
     private void updateMyGPS(){
 
         myGPS = new MyGPS(lm,this);
+        myLatitude = myGPS.getMyLat();
+        myLongitude = myGPS.getMyLong();
     }
 
     /**
