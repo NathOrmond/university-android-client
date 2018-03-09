@@ -5,6 +5,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -55,6 +56,15 @@ public class NearestStationListActivity extends AppCompatActivity {
         adapter = new StationsAdapter(this, android.R.layout.simple_list_item_1, trainStationArrayList);
         this.adapter = adapter;
         listView.setAdapter(adapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Intent startIntent = new Intent(getApplicationContext(), MapActivity.class);
+                startActivity(startIntent);
+            }
+        });
+
         this.listView = listView;
     }
 
@@ -75,9 +85,5 @@ public class NearestStationListActivity extends AppCompatActivity {
         createStationList();
         updateList(adapter, listView);
     }
-
-    public void listItemClicked(View view) {
-        Intent startIntent = new Intent(getApplicationContext(), MapActivity.class);
-        startActivity(startIntent);
-    }
+    
 }
