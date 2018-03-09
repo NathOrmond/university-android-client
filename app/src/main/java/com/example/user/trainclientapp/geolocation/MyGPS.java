@@ -11,6 +11,8 @@ import android.support.v4.app.ActivityCompat;
 
 import com.example.user.trainclientapp.activities.NearestStationListActivity;
 
+import java.util.List;
+
 /**
  * Created by User on 06/03/2018.
  */
@@ -67,9 +69,19 @@ public class MyGPS {
      * Sets Location to current location (required for other methods)
      */
 
+    @SuppressLint("MissingPermission")
     private void updateMyLocation(){
-        setMyLat(location.getLatitude());
-        setMyLong(location.getLongitude());
+        List<String> providers = locationManager.getProviders(true);
+
+        for(String provider : providers) {
+            location = locationManager.getLastKnownLocation(provider);
+
+            if(location != null) {
+                setMyLat(location.getLatitude());
+                setMyLong(location.getLongitude());
+            }
+        }
+            
     }
 
     private void requestLocationUpdates() {
