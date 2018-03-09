@@ -6,16 +6,13 @@ package com.example.user.trainclientapp.stationlist;
 
 public class TrainStation {
 
-    String stationName, distanceString;
+    String stationName;
     Double stationLat, stationLong, distanceNum;
 
     public String getStationName(){
         return stationName;
     }
 
-    public String getDistanceString(){
-        return distanceString;
-    }
 
     // ---
 
@@ -35,10 +32,6 @@ public class TrainStation {
 
     public void setStationName(String stationName){
         this.stationName = stationName;
-    }
-
-    public void setDistanceString(String distanceString){
-        this.distanceString = distanceString;
     }
 
     // ---

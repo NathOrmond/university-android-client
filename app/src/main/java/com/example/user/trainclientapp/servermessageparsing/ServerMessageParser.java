@@ -42,13 +42,9 @@ public class ServerMessageParser {
         DistanceCalculation calculation = new DistanceCalculation();
         Double distance = calculation.Haversine(station.getStationLat(), station.getStationLong(), myLat, myLong);
         station.setDistanceNum(distance);
-        station = addStationDistanceAsString(station, distance);
         return station;
     }
 
-    public TrainStation addStationDistanceAsString(TrainStation station, Double distanceDouble){
-        station.setDistanceString(distanceDouble.toString());
-        return station;
-    }
+
 
 }
