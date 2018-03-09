@@ -1,7 +1,6 @@
 package com.example.user.trainclientapp.activities;
 
 import android.content.Intent;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -11,8 +10,6 @@ import android.widget.TextView;
 import com.example.user.trainclientapp.R;
 
 public class MainActivity extends AppCompatActivity {
-
-    LocationManager lm = (LocationManager) getSystemService(LOCATION_SERVICE);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
