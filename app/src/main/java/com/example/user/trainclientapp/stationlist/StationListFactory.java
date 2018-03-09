@@ -1,8 +1,8 @@
 package com.example.user.trainclientapp.stationlist;
 
-import java.util.ArrayList;
-
 import com.example.user.trainclientapp.servermessageparsing.ServerMessageParser;
+
+import java.util.ArrayList;
 
 /**
  * Created by Nathan on 08/03/2018.
@@ -18,7 +18,7 @@ public class StationListFactory {
         formatSrvData(serverRawData, myLat, myLong);
     }
 
-    public StationListFactory(){
+    public StationListFactory(int listLength){
         this.listLength = listLength;
     }
 

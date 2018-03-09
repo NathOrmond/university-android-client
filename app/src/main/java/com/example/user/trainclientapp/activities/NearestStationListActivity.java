@@ -40,6 +40,7 @@ public class NearestStationListActivity extends AppCompatActivity {
         listView = (ListView) findViewById(R.id.stationList);
 
         updateMyGPS();
+        getNearestStationDataFromSrv();
         createStationList();
         updateList(adapter, listView);
 
@@ -47,11 +48,38 @@ public class NearestStationListActivity extends AppCompatActivity {
     }
 
 
+    /**
+     * Checks for location permissions, given they are granted
+     * updates location manager based on location.
+     * Contains myLatitude and myLongituded as ints
+     */
+
+    private void updateMyGPS(){
+
+        myGPS = new MyGPS(lm,this);
+    }
+
+    /**
+     * Updates data from server based on current latitude and longitude
+     */
+
+    private void getNearestStationDataFromSrv(){
+        new URLASyncTask(this, myGPS.getMyLat().toString(), myGPS.getMyLong().toString()).execute();
+    }
+
+    /**
+     * Creates a station list from the most updated server data
+     */
+
     private void createStationList(){
         StationListFactory stationListFactory = new StationListFactory(srvData,  myGPS.getMyLat(), myGPS.getMyLong(), listLength);
         trainStationArrayList = stationListFactory.getTrainStationArrayList();
     }
 
+    /**
+     * Populates list with the most recent data
+     * Sets list item listener for click
+     */
     private void  updateList(StationsAdapter adapter, ListView listView){
         adapter = new StationsAdapter(this, android.R.layout.simple_list_item_1, trainStationArrayList);
         this.adapter = adapter;
@@ -68,22 +96,23 @@ public class NearestStationListActivity extends AppCompatActivity {
         this.listView = listView;
     }
 
-    private void updateMyGPS(){
-        myGPS = new MyGPS(lm,this);
+    /**
+     * re runs methods when user clicks button to refresh
+     */
+
+    public void updateLocation(View view) {
+        updateMyGPS();
+        getNearestStationDataFromSrv();
+        createStationList();
+        updateList(adapter, listView);
     }
 
-    private void getNearestStationDataFromSrv(){
-        new URLASyncTask(this, myGPS.getMyLat().toString(), myGPS.getMyLong().toString()).execute();
-    }
+    /**
+     * userd by URL A sync task to update server data.
+     */
 
     public void updataData(String newData){
         srvData =  newData;
     }
 
-    public void updateLocation(View view) {
-        updateMyGPS();
-        createStationList();
-        updateList(adapter, listView);
-    }
-    
 }
