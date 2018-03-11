@@ -1,7 +1,6 @@
 package com.example.user.trainclientapp.activities;
 
 import android.content.Intent;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -22,7 +21,6 @@ public class NearestStationListActivity extends AppCompatActivity {
 
 
     Button refreshButton;
-    LocationManager lm;
     ArrayList<TrainStation> trainStationArrayList;
     StationsAdapter adapter;
     ListView listView;
@@ -37,7 +35,6 @@ public class NearestStationListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nearest_station_list);
 
         refreshButton = (Button) findViewById(R.id.refreshButton);
-        lm = (LocationManager) getSystemService(LOCATION_SERVICE);
         listView = (ListView) findViewById(R.id.stationList);
 
         updateMyGPS();
@@ -57,7 +54,7 @@ public class NearestStationListActivity extends AppCompatActivity {
 
     private void updateMyGPS(){
 
-        myGPS = new MyGPS(lm,this);
+        myGPS = new MyGPS(this);
         myLatitude = myGPS.getMyLat();
         myLongitude = myGPS.getMyLong();
     }

@@ -2,6 +2,7 @@ package com.example.user.trainclientapp.geolocation;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
@@ -21,6 +22,7 @@ public class MyGPS {
     Double myLat, myLong;
     LocationManager locationManager;
     Location location;
+    NearestStationListActivity parent;
 
 
     /**
@@ -28,11 +30,11 @@ public class MyGPS {
      * Provided permissions given sets Location() to current GPS data.
      */
     @SuppressLint("MissingPermission")
-    public MyGPS(LocationManager lm, NearestStationListActivity activity) {
-        if(!hasPermissions(activity)){
-            requestPermissions(activity);
+    public MyGPS(NearestStationListActivity activity) {
+        this.parent = activity;
+        if(!hasPermissions()){
+            requestPermissions();
         } else {
-            this.locationManager = lm;
             requestLocationUpdates();
             updateMyLocation();
         }
@@ -43,9 +45,9 @@ public class MyGPS {
      * PERMISSIONS CHECKING METHOD FOR ANDROID
      */
 
-    private boolean hasPermissions(NearestStationListActivity activity){
-        if(ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-        && ActivityCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+    private boolean hasPermissions(){
+        if(ActivityCompat.checkSelfPermission(parent, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+        && ActivityCompat.checkSelfPermission(parent, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
             return false;
 
         } else {
@@ -57,8 +59,8 @@ public class MyGPS {
      * POP UP DIALOGUE REQUESTING GPS PERMISSION
      */
 
-    private void requestPermissions(NearestStationListActivity activity) {
-        ActivityCompat.requestPermissions(activity, new String[]{
+    private void requestPermissions() {
+        ActivityCompat.requestPermissions(parent, new String[]{
                 "Android.Permission.ACCESS_FINE_LOCATION",
                 "Android.Permission.ACCESS_COARSE_LOCATION"
         },1);
@@ -86,7 +88,9 @@ public class MyGPS {
 
     private void requestLocationUpdates() {
         try {
+            locationManager = (LocationManager) parent.getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
+
                 @Override
                 public void onLocationChanged(Location location) {
                 }
