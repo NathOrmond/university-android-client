@@ -1,6 +1,7 @@
 package com.example.user.trainclientapp.stationlist;
 
 import com.example.user.trainclientapp.servermessageparsing.ServerMessageParser;
+import com.example.user.trainclientapp.servermessageparsing.ServerMessageStringManipulator;
 
 import java.util.ArrayList;
 
@@ -17,19 +18,19 @@ public class StationListFactory {
         this.listLength = listLength;
         formatSrvData(serverRawData, myLat, myLong);
     }
-
-    public StationListFactory(int listLength){
-        this.listLength = listLength;
-    }
+    
 
     private void formatSrvData(String serverRawData, Double myLat, Double myLong){
-        ServerMessageParser formatting = new ServerMessageParser();
+        ServerMessageParser listPopulator = new ServerMessageParser();
+        ServerMessageStringManipulator dataExtractor = new ServerMessageStringManipulator();
         trainStationArrayList = new ArrayList<TrainStation>();
         TrainStation station;
 
+        String[][] formattedData = dataExtractor.formatServerData(serverRawData, listLength);
+
         for(int i = 0; i < listLength; i++) {
-            station = formatting.createTrainStationForListPos(i,serverRawData);
-            station = formatting.addStationDistance(station,myLat,myLong);
+            station = listPopulator.createTrainStationForListPos(i,formattedData);
+            station = listPopulator.addStationDistance(station,myLat,myLong);
             trainStationArrayList.add(i, station);
         }
 

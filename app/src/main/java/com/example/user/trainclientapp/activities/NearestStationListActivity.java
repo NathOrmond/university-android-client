@@ -3,7 +3,6 @@ package com.example.user.trainclientapp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -46,7 +45,7 @@ public class NearestStationListActivity extends AppCompatActivity {
         updateMyGPS();
         if(dataIsNotNull()) {
              getNearestStationDataFromSrv();
-//      createStationList();
+             createStationList();
 //      updateList(adapter, listView);
         }
 
@@ -80,8 +79,6 @@ public class NearestStationListActivity extends AppCompatActivity {
         String latitudeString, longitudeString;
         latitudeString = myLatitude.toString();
         longitudeString = myLongitude.toString();
-        Log.v("latString", latitudeString);
-        Log.v("longString", longitudeString);
         new URLASyncTask(this, latitudeString, longitudeString).execute();
     }
 
@@ -90,7 +87,7 @@ public class NearestStationListActivity extends AppCompatActivity {
      */
 
     private void createStationList(){
-        StationListFactory stationListFactory = new StationListFactory(srvData,  myGPS.getMyLat(), myGPS.getMyLong(), listLength);
+        StationListFactory stationListFactory = new StationListFactory(srvData,  myLatitude, myLongitude, listLength);
         trainStationArrayList = stationListFactory.getTrainStationArrayList();
     }
 
@@ -128,7 +125,6 @@ public class NearestStationListActivity extends AppCompatActivity {
 
     public void updataData(String newData){
         this.srvData =  newData;
-        Log.v("ServerData", srvData);
     }
 
 }

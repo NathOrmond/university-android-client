@@ -10,29 +10,32 @@ import com.example.user.trainclientapp.stationlist.TrainStation;
 public class ServerMessageParser {
 
     Double stationLat, stationLong;
+    int stationNamePos = 6;
+    int stationLatPos = 2;
+    int stationLongPos = 4;
 
-    public TrainStation createTrainStationForListPos(int listPosition, String rawServerData){
+
+    public TrainStation createTrainStationForListPos(int listPosition, String[][] formattedData){
         TrainStation station = new TrainStation();
-        station.setStationName(extractStationName(listPosition, rawServerData));
-        station.setStationLat(extractStationLat(listPosition, rawServerData));
-        station.setStationLong(extractStationLong(listPosition, rawServerData));
+        station.setStationName(extractStationName(listPosition, formattedData));
+        station.setStationLat(extractStationLat(listPosition, formattedData));
+        station.setStationLong(extractStationLong(listPosition, formattedData));
         return station;
     }
 
-    public String extractStationName(int listPosition, String rawServerData){
-        String stationName = "station " + listPosition;
-        return stationName;
+    public String extractStationName(int listPosition, String[][] formattedData){
+        return formattedData[listPosition][6];
     }
 
-    public Double extractStationLat(int listPosition, String rawServerData){
-        String extractedString = "100";
+    public Double extractStationLat(int listPosition, String[][] formattedData){
+        String extractedString = formattedData[listPosition][stationLatPos];
         Double stationLat = Double.parseDouble(extractedString);
         this.stationLat = stationLat;
         return stationLat;
     }
 
-    public Double extractStationLong(int listPosition, String rawServerData){
-        String extractedString = "100";
+    public Double extractStationLong(int listPosition, String[][] formattedData){
+        String extractedString = formattedData[listPosition][stationLongPos];
         Double stationLong = Double.parseDouble(extractedString);
         this.stationLong = stationLong;
         return stationLong;
