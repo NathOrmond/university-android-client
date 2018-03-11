@@ -3,6 +3,7 @@ package com.example.user.trainclientapp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -37,14 +38,21 @@ public class NearestStationListActivity extends AppCompatActivity {
         refreshButton = (Button) findViewById(R.id.refreshButton);
         listView = (ListView) findViewById(R.id.stationList);
 
-        updateMyGPS();
-        getNearestStationDataFromSrv();
-        createStationList();
-        updateList(adapter, listView);
-
 
     }
 
+
+    private void activityMethod(){
+        if(updateMyGPS()) {
+            Log.v("myTag", String.valueOf(myGPS.getMyLat()));
+            Log.v("myTag", String.valueOf(myGPS.getMyLong()));
+
+//            getNearestStationDataFromSrv();
+//            getNearestStationDataFromSrv();
+//            createStationList();
+//            updateList(adapter, listView);
+        }
+    }
 
     /**
      * Checks for location permissions, given they are granted
@@ -52,11 +60,11 @@ public class NearestStationListActivity extends AppCompatActivity {
      * Contains myLatitude and myLongituded as ints
      */
 
-    private void updateMyGPS(){
-
+    private boolean updateMyGPS(){
         myGPS = new MyGPS(this);
         myLatitude = myGPS.getMyLat();
         myLongitude = myGPS.getMyLong();
+        return true;
     }
 
     /**
@@ -110,10 +118,7 @@ public class NearestStationListActivity extends AppCompatActivity {
      */
 
     public void updateLocation(View view) {
-        updateMyGPS();
-        getNearestStationDataFromSrv();
-        createStationList();
-        updateList(adapter, listView);
+        activityMethod();
     }
 
     /**
