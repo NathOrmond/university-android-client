@@ -2,24 +2,25 @@ package com.example.user.trainclientapp.geolocation;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
+import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 
 import com.example.user.trainclientapp.activities.NearestStationListActivity;
-
-import java.util.List;
 
 /**
  * Created by User on 06/03/2018.
  */
 
-public class MyGPS {
+public class MyGPS extends NearestStationListActivity {
     Double myLat, myLong;
+    LocationListener listener;
     LocationManager locationManager;
     Location location;
     NearestStationListActivity parent;
@@ -32,86 +33,79 @@ public class MyGPS {
     @SuppressLint("MissingPermission")
     public MyGPS(NearestStationListActivity activity) {
         this.parent = activity;
-        if(!hasPermissions()){
-            requestPermissions();
-        } else {
-            requestLocationUpdates();
-            updateMyLocation();
-        }
+            locationManager = (LocationManager) parent.getSystemService(parent.LOCATION_SERVICE);
+            refreshUpdate();
     }
 
 
-    /**
-     * PERMISSIONS CHECKING METHOD FOR ANDROID
-     */
-
-    private boolean hasPermissions(){
-        if(ActivityCompat.checkSelfPermission(parent, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
-        && ActivityCompat.checkSelfPermission(parent, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
-            return false;
-
-        } else {
-            return true;
-            }
-        }
-
-    /**
-     * POP UP DIALOGUE REQUESTING GPS PERMISSION
-     */
-
-    private void requestPermissions() {
-        ActivityCompat.requestPermissions(parent, new String[]{
-                "Android.Permission.ACCESS_FINE_LOCATION",
-                "Android.Permission.ACCESS_COARSE_LOCATION"
-        },1);
+    public void refreshUpdate() {
+        initialiseListener();
+        checkForPermissions();
     }
 
-    /**
-     * Sets Location to current location (required for other methods)
-     */
 
-    @SuppressLint("MissingPermission")
-    private void updateMyLocation(){
-        List<String> providers = locationManager.getProviders(true);
 
-        for(String provider : providers) {
-            location = locationManager.getLastKnownLocation(provider);
-//            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
-            if(location != null) {
+    private void initialiseListener(){
+        listener = new LocationListener() {
+            @Override
+            public void onLocationChanged(Location location) {
                 setMyLat(location.getLatitude());
                 setMyLong(location.getLongitude());
             }
-        }
 
+            @Override
+            public void onStatusChanged(String s, int i, Bundle bundle) {
+
+            }
+
+            @Override
+            public void onProviderEnabled(String s) {
+
+            }
+
+            @Override
+            public void onProviderDisabled(String s) {
+                Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                startActivity(intent);
+            }
+        };
     }
 
-    private void requestLocationUpdates() {
-        try {
-            locationManager = (LocationManager) parent.getSystemService(Context.LOCATION_SERVICE);
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, new LocationListener() {
+    private void checkForPermissions(){
+        if (ActivityCompat.checkSelfPermission(parent, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(parent, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            parent.requestPermissions(new String[] {
+                    Manifest.permission.ACCESS_FINE_LOCATION,
+                    Manifest.permission.ACCESS_COARSE_LOCATION,
+                    Manifest.permission.INTERNET,
+            }, 10);
 
-                @Override
-                public void onLocationChanged(Location location) {
-                }
-
-                @Override
-                public void onStatusChanged(String s, int i, Bundle bundle) {
-                }
-
-                @Override
-                public void onProviderEnabled(String s) {
-                }
-
-                @Override
-                public void onProviderDisabled(String s) {
-
-                }
-            });
+            return;
+        } else {
+            configureUpdateRequest();
         }
-        catch(SecurityException e) {
-            e.printStackTrace();
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        switch(requestCode) {
+            case 10:
+                if(grantResults.length>0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                configureUpdateRequest();
+                }
+                return;
+
         }
+    }
+
+    public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults){
+        parent.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    @SuppressLint("MissingPermission")
+    private void configureUpdateRequest() {
+        locationManager.requestLocationUpdates("gps", 0, 0, listener);
     }
 
 
@@ -134,5 +128,23 @@ public class MyGPS {
     public Double getMyLong(){
         return myLong;
     }
+
+
+//    @SuppressLint("MissingPermission")
+//    private void updateMyLocation() {
+//        List<String> providers = locationManager.getProviders(true);
+//
+//        for (String provider : providers) {
+//            location = locationManager.getLastKnownLocation(provider);
+////            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+//
+//            if (location != null) {
+//                setMyLat(location.getLatitude());
+//                setMyLong(location.getLongitude());
+//            }
+//        }
+//
+//    }
+
 
 }
