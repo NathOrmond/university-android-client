@@ -3,6 +3,7 @@ package com.example.user.trainclientapp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -43,9 +44,20 @@ public class NearestStationListActivity extends AppCompatActivity {
 
     private void activityMethod(){
         updateMyGPS();
-//      getNearestStationDataFromSrv();
+        if(dataIsNotNull()) {
+             getNearestStationDataFromSrv();
 //      createStationList();
 //      updateList(adapter, listView);
+        }
+
+    }
+
+    private boolean dataIsNotNull(){
+        if((myLongitude != null) && (myLatitude != null)){
+            return true; } else
+        {
+            return false;
+        }
     }
 
     /**
@@ -54,11 +66,10 @@ public class NearestStationListActivity extends AppCompatActivity {
      * Contains myLatitude and myLongituded as ints
      */
 
-    private boolean updateMyGPS(){
+    private void updateMyGPS(){
         myGPS = new MyGPS(this);
         myLatitude = myGPS.getMyLat();
         myLongitude = myGPS.getMyLong();
-        return true;
     }
 
     /**
@@ -67,14 +78,10 @@ public class NearestStationListActivity extends AppCompatActivity {
 
     private void getNearestStationDataFromSrv(){
         String latitudeString, longitudeString;
-        if((myLatitude == null) || (myLongitude == null)) {
-            latitudeString ="0";
-            longitudeString="0";
-        } else {
-            latitudeString = myLatitude.toString();
-            longitudeString = myLongitude.toString();
-        }
-
+        latitudeString = myLatitude.toString();
+        longitudeString = myLongitude.toString();
+        Log.v("latString", latitudeString);
+        Log.v("longString", longitudeString);
         new URLASyncTask(this, latitudeString, longitudeString).execute();
     }
 
@@ -120,7 +127,8 @@ public class NearestStationListActivity extends AppCompatActivity {
      */
 
     public void updataData(String newData){
-        srvData =  newData;
+        this.srvData =  newData;
+        Log.v("ServerData", srvData);
     }
 
 }
