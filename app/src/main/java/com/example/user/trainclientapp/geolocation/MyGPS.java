@@ -14,6 +14,8 @@ import android.support.v4.app.ActivityCompat;
 
 import com.example.user.trainclientapp.activities.NearestStationListActivity;
 
+import java.util.List;
+
 /**
  * Created by User on 06/03/2018.
  */
@@ -41,6 +43,7 @@ public class MyGPS extends NearestStationListActivity {
     public void refreshUpdate() {
         initialiseListener();
         checkForPermissions();
+        updateMyLocation();
     }
 
 
@@ -130,21 +133,21 @@ public class MyGPS extends NearestStationListActivity {
     }
 
 
-//    @SuppressLint("MissingPermission")
-//    private void updateMyLocation() {
-//        List<String> providers = locationManager.getProviders(true);
-//
-//        for (String provider : providers) {
-//            location = locationManager.getLastKnownLocation(provider);
-////            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
-//
-//            if (location != null) {
-//                setMyLat(location.getLatitude());
-//                setMyLong(location.getLongitude());
-//            }
-//        }
-//
-//    }
+    @SuppressLint("MissingPermission")
+    private void updateMyLocation() {
+        List<String> providers = locationManager.getProviders(true);
+
+        for (String provider : providers) {
+            location = locationManager.getLastKnownLocation(provider);
+//            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+
+            if (location != null) {
+                setMyLat(location.getLatitude());
+                setMyLong(location.getLongitude());
+            }
+        }
+
+    }
 
 
 }
