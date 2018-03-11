@@ -3,7 +3,6 @@ package com.example.user.trainclientapp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -38,20 +37,15 @@ public class NearestStationListActivity extends AppCompatActivity {
         refreshButton = (Button) findViewById(R.id.refreshButton);
         listView = (ListView) findViewById(R.id.stationList);
 
-
+        activityMethod();
     }
 
 
     private void activityMethod(){
-        if(updateMyGPS()) {
-            Log.v("Latitude :", String.valueOf(myLatitude));
-            Log.v("Longitude :", String.valueOf(myLongitude));
-
-//            getNearestStationDataFromSrv();
-//            getNearestStationDataFromSrv();
-//            createStationList();
-//            updateList(adapter, listView);
-        }
+        updateMyGPS();
+//      getNearestStationDataFromSrv();
+//      createStationList();
+//      updateList(adapter, listView);
     }
 
     /**
