@@ -139,7 +139,6 @@ public class MyGPS extends NearestStationListActivity {
 
         for (String provider : providers) {
             location = locationManager.getLastKnownLocation(provider);
-//            location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER);
 
             if (location != null) {
                 setMyLat(location.getLatitude());

@@ -44,8 +44,8 @@ public class NearestStationListActivity extends AppCompatActivity {
 
     private void activityMethod(){
         if(updateMyGPS()) {
-            Log.v("myTag", String.valueOf(myGPS.getMyLat()));
-            Log.v("myTag", String.valueOf(myGPS.getMyLong()));
+            Log.v("Latitude :", String.valueOf(myLatitude));
+            Log.v("Longitude :", String.valueOf(myLongitude));
 
 //            getNearestStationDataFromSrv();
 //            getNearestStationDataFromSrv();
