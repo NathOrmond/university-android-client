@@ -1,10 +1,16 @@
 package com.example.user.trainclientapp.stationlist;
 
 import android.content.Context;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.TextView;
 
-import java.util.HashMap;
-import java.util.List;
+import com.example.user.trainclientapp.R;
+import com.example.user.trainclientapp.activities.NearestStationListActivity;
+
+import java.util.ArrayList;
 
 /**
  * Created by User on 06/03/2018.
@@ -12,27 +18,72 @@ import java.util.List;
 
 public class StationsAdapter extends ArrayAdapter<TrainStation> {
 
-    HashMap<TrainStation, Integer> mIDMap = new HashMap<TrainStation, Integer>();
-    int listLength = 5;
+    private NearestStationListActivity activity;
+    private ArrayList<TrainStation> stationList;
+    private static LayoutInflater inflater = null;
 
-    public StationsAdapter(Context context, int textViewResourceId, List<TrainStation> objects) {
-        super(context, textViewResourceId, objects);
+    public StationsAdapter (NearestStationListActivity activity, int textViewResourceId,ArrayList<TrainStation> stationList) {
+        super(activity, textViewResourceId, stationList);
+        try {
+            this.activity = activity;
+            this.stationList = stationList;
 
-        for(int i = 0; i < listLength; i++) {
-            mIDMap.put(objects.get(i), i);
+            inflater = (LayoutInflater) activity.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        } catch (Exception e) {
+
         }
     }
 
-    @Override
-    public long getItemId(int position){
-        TrainStation item = getItem(position);
-        return mIDMap.get(item);
+    public String getStationName(TrainStation station) {
+        return station.getStationName();
+    }
+
+    public Double getStationDistance(TrainStation station) {
+        return station.getDistanceNum();
+    }
+
+    public TrainStation getStation(int position) {
+        return stationList.get(position);
+    }
+
+    public static class ViewHolder {
+        public TextView display_station_name;
+        public TextView display_station_distance;
+
+    }
+
+    public View getView(int position, View convertView, ViewGroup parent) {
+        View vi = convertView;
+        final ViewHolder holder;
+        try {
+            if (convertView == null) {
+                vi = inflater.inflate(R.layout.list_layout, null);
+                holder = new ViewHolder();
+
+                holder.display_station_name = (TextView) vi.findViewById(R.id.stationName);
+                holder.display_station_distance = (TextView) vi.findViewById(R.id.distance);
+
+
+                vi.setTag(holder);
+            } else {
+                holder = (ViewHolder) vi.getTag();
+            }
+
+
+
+            holder.display_station_distance.setText(stationList.get(position).getStationName());
+            holder.display_station_name.setText(Double.toString(stationList.get(position).getDistanceNum()));
+
+
+        } catch (Exception e) {
+
+
+        }
+        return vi;
     }
 
 
-    @Override
-    public boolean hasStableIds(){
-        return true;
-    }
+
 
 }
