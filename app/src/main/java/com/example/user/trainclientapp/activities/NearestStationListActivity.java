@@ -11,7 +11,6 @@ import android.widget.ListView;
 
 import com.example.user.trainclientapp.R;
 import com.example.user.trainclientapp.geolocation.MyGPS;
-import com.example.user.trainclientapp.servernetworking.URLASyncTask;
 import com.example.user.trainclientapp.stationlist.StationListFactory;
 import com.example.user.trainclientapp.stationlist.StationsAdapter;
 import com.example.user.trainclientapp.stationlist.TrainStation;
@@ -75,7 +74,7 @@ public class NearestStationListActivity extends AppCompatActivity {
         Log.i("latitudeString", latitudeString);
         Log.i("longitudeString", longitudeString);
 
-        new URLASyncTask(this, latitudeString, longitudeString).execute();
+//        new URLASyncTask(this, latitudeString, longitudeString).execute();
 
     }
 

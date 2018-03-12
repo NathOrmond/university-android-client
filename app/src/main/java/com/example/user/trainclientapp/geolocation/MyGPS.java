@@ -12,6 +12,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 
+import com.example.user.trainclientapp.activities.MainActivity;
 import com.example.user.trainclientapp.activities.NearestStationListActivity;
 
 import java.util.List;
@@ -25,7 +26,8 @@ public class MyGPS extends NearestStationListActivity {
     LocationListener listener;
     LocationManager locationManager;
     Location location;
-    NearestStationListActivity parent;
+    NearestStationListActivity parent = null;
+    MainActivity mainParent;
 
 
     /**
@@ -38,7 +40,6 @@ public class MyGPS extends NearestStationListActivity {
             locationManager = (LocationManager) parent.getSystemService(parent.LOCATION_SERVICE);
             refreshUpdate();
     }
-
 
     public void refreshUpdate() {
         initialiseListener();
@@ -80,19 +81,20 @@ public class MyGPS extends NearestStationListActivity {
     /**
      * Checks android GPS Location permissions have been granted to app
      */
-    private void checkForPermissions(){
-        if (ActivityCompat.checkSelfPermission(parent, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(parent, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            parent.requestPermissions(new String[] {
-                    Manifest.permission.ACCESS_FINE_LOCATION,
-                    Manifest.permission.ACCESS_COARSE_LOCATION,
-                    Manifest.permission.INTERNET,
-            }, 10);
+    public void checkForPermissions(){
 
-            return;
-        } else {
-            configureUpdateRequest();
-        }
+            if (ActivityCompat.checkSelfPermission(parent, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                    ActivityCompat.checkSelfPermission(parent, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                parent.requestPermissions(new String[]{
+                        Manifest.permission.ACCESS_FINE_LOCATION,
+                        Manifest.permission.ACCESS_COARSE_LOCATION,
+                        Manifest.permission.INTERNET,
+                }, 10);
+
+                return;
+            } else {
+                configureUpdateRequest();
+            }
     }
 
     @Override
