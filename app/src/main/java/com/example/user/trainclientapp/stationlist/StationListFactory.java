@@ -1,5 +1,7 @@
 package com.example.user.trainclientapp.stationlist;
 
+import android.util.Log;
+
 import com.example.user.trainclientapp.servermessageparsing.ServerMessageParser;
 import com.example.user.trainclientapp.servermessageparsing.ServerMessageStringManipulator;
 
@@ -12,13 +14,14 @@ import java.util.ArrayList;
 public class StationListFactory {
 
     int listLength;
+
     ArrayList<TrainStation> trainStationArrayList;
 
     public StationListFactory(String serverRawData, Double myLat, Double myLong, int listLength){
         this.listLength = listLength;
         formatSrvData(serverRawData, myLat, myLong);
     }
-    
+
 
     private void formatSrvData(String serverRawData, Double myLat, Double myLong){
         ServerMessageParser listPopulator = new ServerMessageParser();
@@ -26,13 +29,26 @@ public class StationListFactory {
         trainStationArrayList = new ArrayList<TrainStation>();
         TrainStation station;
 
-        String[][] formattedData = dataExtractor.formatServerData(serverRawData, listLength);
 
-        for(int i = 0; i < listLength; i++) {
-            station = listPopulator.createTrainStationForListPos(i,formattedData);
-            station = listPopulator.addStationDistance(station,myLat,myLong);
-            trainStationArrayList.add(i, station);
-        }
+
+        String[] formattedData = dataExtractor.formatServerData(serverRawData);
+        Log.v("Stations List", formattedData[1]);
+        Log.v("Stations List", formattedData[2]);
+        Log.v("Stations List", formattedData[3]);
+        Log.v("Stations List", formattedData[4]);
+        Log.v("Stations List", formattedData[5]);
+        Log.v("Stations List", formattedData[6]);
+
+
+
+
+//        for(int i = 0; i < listLength; i++) {
+//            station = listPopulator.createTrainStationForListPos(i,formattedData);
+//            station = listPopulator.addStationDistance(station,myLat,myLong);
+//            trainStationArrayList.add(i, station);
+//        }
+
+
 
     }
 

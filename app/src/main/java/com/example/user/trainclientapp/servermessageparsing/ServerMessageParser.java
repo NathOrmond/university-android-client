@@ -1,5 +1,7 @@
 package com.example.user.trainclientapp.servermessageparsing;
 
+import android.util.Log;
+
 import com.example.user.trainclientapp.geolocation.DistanceCalculation;
 import com.example.user.trainclientapp.stationlist.TrainStation;
 
@@ -10,12 +12,13 @@ import com.example.user.trainclientapp.stationlist.TrainStation;
 public class ServerMessageParser {
 
     Double stationLat, stationLong;
-    int stationNamePos = 6;
-    int stationLatPos = 2;
-    int stationLongPos = 4;
+    int stationNamePos = 5;
+    int stationLatPos = 1;
+    int stationLongPos = 3;
+    int listItems = 6;
 
 
-    public TrainStation createTrainStationForListPos(int listPosition, String[][] formattedData){
+    public TrainStation createTrainStationForListPos(int listPosition, String[] formattedData){
         TrainStation station = new TrainStation();
         station.setStationName(extractStationName(listPosition, formattedData));
         station.setStationLat(extractStationLat(listPosition, formattedData));
@@ -23,19 +26,20 @@ public class ServerMessageParser {
         return station;
     }
 
-    public String extractStationName(int listPosition, String[][] formattedData){
-        return formattedData[listPosition][6];
+    public String extractStationName(int listPosition, String[] formattedData){
+        Log.v("Stations Name", formattedData[(listItems*listPosition) + stationNamePos]);
+        return formattedData[(listItems*listPosition) + stationNamePos];
     }
 
-    public Double extractStationLat(int listPosition, String[][] formattedData){
-        String extractedString = formattedData[listPosition][stationLatPos];
+    public Double extractStationLat(int listPosition, String[] formattedData){
+        String extractedString = formattedData[(listItems*listPosition) + stationLatPos];
         Double stationLat = Double.parseDouble(extractedString);
         this.stationLat = stationLat;
         return stationLat;
     }
 
-    public Double extractStationLong(int listPosition, String[][] formattedData){
-        String extractedString = formattedData[listPosition][stationLongPos];
+    public Double extractStationLong(int listPosition, String[] formattedData){
+        String extractedString = formattedData[(listItems*listPosition) + stationLongPos];
         Double stationLong = Double.parseDouble(extractedString);
         this.stationLong = stationLong;
         return stationLong;

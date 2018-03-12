@@ -19,7 +19,7 @@ import java.net.URL;
 public class URLASyncTask extends AsyncTask<String, Integer, String> {
 
     NearestStationListActivity _parent;
-    String urlString = "http://zebedee.kriswelsh.com:8080/stations";
+    String urlString = "https://zebedee.kriswelsh.com:8080/stations";
     String lat, lng;
 
     public URLASyncTask(NearestStationListActivity parent, String myLat, String myLong) {

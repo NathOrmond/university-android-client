@@ -8,21 +8,12 @@ import android.util.Log;
 
 public class ServerMessageStringManipulator {
 
-    int messageItems = 6;
 
-    public String[][] formatServerData(String rawServerData, int listLength){
-        String[][] formattedData = new String[listLength][messageItems];
+    public String[] formatServerData(String rawServerData){
+
         String delimiters = "[-\\t,;?!:@\\[\\](){}_*/]";
-        String[] partFormattedData = rawServerData.split(delimiters);
-
-        int k = 0;
-        for(int i = 0; i < listLength; i++) {
-            for(int j = 0; j < messageItems; j++){
-               formattedData[listLength][messageItems] = partFormattedData[k];
-               Log.v("Message Item", formattedData[listLength][messageItems]);
-            }
-        }
-
-        return formattedData;
+        String[] formattedData = rawServerData.split(delimiters);
+        Log.v("Stations List", formattedData[5]);
+             return formattedData;
     }
 }

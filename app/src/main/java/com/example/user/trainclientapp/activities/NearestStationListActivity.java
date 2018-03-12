@@ -3,6 +3,7 @@ package com.example.user.trainclientapp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -37,24 +38,19 @@ public class NearestStationListActivity extends AppCompatActivity {
         refreshButton = (Button) findViewById(R.id.refreshButton);
         listView = (ListView) findViewById(R.id.stationList);
 
-        activityMethod();
     }
 
 
     private void activityMethod(){
         updateMyGPS();
-        if(dataIsNotNull()) {
-             getNearestStationDataFromSrv();
-             createStationList();
-//      updateList(adapter, listView);
-        }
-
+        Log.v("latitude", String.valueOf(myLatitude));
+        Log.v("longitude", String.valueOf(myLongitude));
+        getNearestStationDataFromSrv();
     }
 
     private boolean dataIsNotNull(){
         if((myLongitude != null) && (myLatitude != null)){
-            return true; } else
-        {
+            return true; } else {
             return false;
         }
     }
@@ -79,7 +75,38 @@ public class NearestStationListActivity extends AppCompatActivity {
         String latitudeString, longitudeString;
         latitudeString = myLatitude.toString();
         longitudeString = myLongitude.toString();
+
+        Log.v("latitudeString", latitudeString);
+        Log.v("longitudeString", longitudeString);
+
         new URLASyncTask(this, latitudeString, longitudeString).execute();
+
+    }
+
+
+
+    /**
+     * re runs methods when user clicks button to refresh
+     */
+
+    public void updateLocation(View view) {
+        activityMethod();
+    }
+
+    /**
+     * runs on post execute of async task
+     */
+
+    public void updataData(String newData){
+        this.srvData =  newData;
+        Log.v("degug", srvData);
+
+        if(srvData.equals(dataIsNotNull())) {
+//        createStationList();
+//        updateList(adapter, listView);
+        } else {
+        // Server is down
+        }
     }
 
     /**
@@ -87,8 +114,12 @@ public class NearestStationListActivity extends AppCompatActivity {
      */
 
     private void createStationList(){
+        Log.v("debug", srvData);
         StationListFactory stationListFactory = new StationListFactory(srvData,  myLatitude, myLongitude, listLength);
-        trainStationArrayList = stationListFactory.getTrainStationArrayList();
+
+
+//        trainStationArrayList = stationListFactory.getTrainStationArrayList();
+
     }
 
     /**
@@ -109,22 +140,6 @@ public class NearestStationListActivity extends AppCompatActivity {
         });
 
         this.listView = listView;
-    }
-
-    /**
-     * re runs methods when user clicks button to refresh
-     */
-
-    public void updateLocation(View view) {
-        activityMethod();
-    }
-
-    /**
-     * userd by URL A sync task to update server data.
-     */
-
-    public void updataData(String newData){
-        this.srvData =  newData;
     }
 
 }
