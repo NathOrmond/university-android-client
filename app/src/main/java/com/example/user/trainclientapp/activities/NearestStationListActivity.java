@@ -40,6 +40,12 @@ public class NearestStationListActivity extends AppCompatActivity {
         activityMethod();
     }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        activityMethod();
+    }
+
     /**
      * Runs the main method sequence of subroutines for this activity
      */
