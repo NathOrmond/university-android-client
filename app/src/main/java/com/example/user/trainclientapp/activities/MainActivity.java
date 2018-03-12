@@ -46,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void checkPermissions()  {
-       while(!permissions) {
+
            if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                    ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
                info.setText("Permissions must be granted or app cannot be used!");
@@ -73,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
                        "list will open up directions to the chosen station.\"");
            }
 
-       }
+
     }
 
     /**
