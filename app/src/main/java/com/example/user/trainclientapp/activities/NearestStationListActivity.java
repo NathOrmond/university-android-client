@@ -37,6 +37,8 @@ public class NearestStationListActivity extends AppCompatActivity {
         refreshButton = (Button) findViewById(R.id.refreshButton);
         listView = (ListView) findViewById(R.id.stationList);
         listLength = 4;
+
+        activityMethod();
     }
 
 
@@ -45,12 +47,6 @@ public class NearestStationListActivity extends AppCompatActivity {
         getNearestStationDataFromSrv();
     }
 
-    private boolean dataIsNotNull(){
-        if((myLongitude != null) && (myLatitude != null)){
-            return true; } else {
-            return false;
-        }
-    }
 
     /**
      * Checks for location permissions, given they are granted
@@ -73,8 +69,8 @@ public class NearestStationListActivity extends AppCompatActivity {
         latitudeString = myLatitude.toString();
         longitudeString = myLongitude.toString();
 
-        Log.v("latitudeString", latitudeString);
-        Log.v("longitudeString", longitudeString);
+        Log.i("latitudeString", latitudeString);
+        Log.i("longitudeString", longitudeString);
 
         new URLASyncTask(this, latitudeString, longitudeString).execute();
 
@@ -96,23 +92,20 @@ public class NearestStationListActivity extends AppCompatActivity {
 
     public void updataData(String newData){
 
-
-
         if(newData != null) {
             this.srvData =  newData;
             Log.v("Server Has Data", srvData);
 
         } else {
-
-            Log.v("degug", "Server down error, test Data in use");
             srvData = "[{\"Latitude\":\"100\",\"Longitude\":\"60\",\"StationName\":\"Station1\",\n" +
                     "\"Latitude\":\"100\",\"Longitude\":\"60\",\"StationName\":\"Station2\",\n" +
                     "\"Latitude\":\"100\",\"Longitude\":\"60\",\"StationName\":\"Station3\",\n" +
                     "\"Latitude\":\"100\",\"Longitude\":\"60\",\"StationName\":\"Station4\",\n" +
                     "\"Latitude\":\"100\",\"Longitude\":\"60\",\"StationName\":\"Station5\"}]";
+            Log.v("degug", "Server down error, test Data in use" + srvData);
         }
             createStationList();
-//        updateList(adapter, listView);
+//            updateList(adapter, listView);
     }
 
     /**
@@ -121,10 +114,7 @@ public class NearestStationListActivity extends AppCompatActivity {
 
     private void createStationList(){
         StationListFactory stationListFactory = new StationListFactory(srvData,  myLatitude, myLongitude, listLength);
-
-
-//        trainStationArrayList = stationListFactory.getTrainStationArrayList();
-
+        trainStationArrayList = stationListFactory.getTrainStationArrayList();
     }
 
     /**
@@ -139,8 +129,11 @@ public class NearestStationListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent startIntent = new Intent(getApplicationContext(), MapActivity.class);
-                startActivity(startIntent);
+                Intent mapIntent = new Intent(getApplicationContext(), MapActivity.class);
+                mapIntent.putExtra("MY_LATITUDE", myLatitude);
+                mapIntent.putExtra("MY_LONGITUDE", myLatitude);
+                mapIntent.putExtra("STATION_LIST", trainStationArrayList);
+                startActivity(mapIntent);
             }
         });
 

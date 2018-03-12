@@ -15,7 +15,6 @@ public class ServerMessageStringManipulator {
         for(int i = 0; i < formattedData.length; i++) {
             formattedData[i] = formattedData[i].replace("\"","");
         }
-
-             return formattedData;
+        return formattedData;
     }
 }

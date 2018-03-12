@@ -52,6 +52,7 @@ public class ServerMessageParser {
         DistanceCalculation calculation = new DistanceCalculation();
         Double distance = calculation.Haversine(station.getStationLat(), station.getStationLong(), myLat, myLong);
         station.setDistanceNum(distance);
+        Log.i("Distance From Me", String.valueOf(distance));
         return station;
     }
 
