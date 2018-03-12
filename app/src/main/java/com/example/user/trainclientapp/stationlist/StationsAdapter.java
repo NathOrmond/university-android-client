@@ -35,18 +35,6 @@ public class StationsAdapter extends ArrayAdapter<TrainStation> {
         }
     }
 
-    public String getStationName(TrainStation station) {
-        return station.getStationName();
-    }
-
-    public Double getStationDistance(TrainStation station) {
-        return station.getDistanceNum();
-    }
-
-    public TrainStation getStation(int position) {
-        return stationList.get(position);
-    }
-
     public static class ViewHolder {
         public TextView display_station_name;
         public TextView display_station_distance;
@@ -69,8 +57,6 @@ public class StationsAdapter extends ArrayAdapter<TrainStation> {
             } else {
                 holder = (ViewHolder) vi.getTag();
             }
-
-
 
             holder.display_station_distance.setText(stationList.get(position).getStationName());
             holder.display_station_name.setText(Double.toString(stationList.get(position).getDistanceNum()));
