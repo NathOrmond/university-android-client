@@ -31,15 +31,14 @@ public class StationListFactory {
      */
     private void formatSrvData(String serverRawData, Double myLat, Double myLong){
 
-            ServerMessageParser listPopulator = new ServerMessageParser();
-            ServerMessageStringManipulator dataExtractor = new ServerMessageStringManipulator();
-            trainStationArrayList = new ArrayList<TrainStation>();
-            TrainStation station;
+        ServerMessageParser listPopulator = new ServerMessageParser();
+        ServerMessageStringManipulator dataExtractor = new ServerMessageStringManipulator();
+        trainStationArrayList = new ArrayList<TrainStation>();
+        TrainStation station;
+        String[] formattedData = dataExtractor.formatServerData(serverRawData);
 
-            String[] formattedData = dataExtractor.formatServerData(serverRawData);
-
-            Log.i("StationsArray", "Array Created Succesfully");
-            Log.i("StationsArray", String.valueOf(formattedData.length));
+        Log.i("StationsArray", "Server data formatted to >>");
+        Log.i("number of data items", String.valueOf(formattedData.length));
 
         for(int i = 0; i < listLength; i++) {
             Log.i("new station", "[" + i + "] -----------------------------" );

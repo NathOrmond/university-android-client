@@ -93,16 +93,22 @@ public class NearestStationListActivity extends AppCompatActivity {
 
     public void updataData(String newData){
 
-        if(newData != null) {
-            this.srvData =  newData;
-            Log.v("Server Has Data", srvData);
+        this.srvData =  newData;
+        Log.i("SERVER_DATA", srvData);
 
-        } else {
-            //TestData for lat=0.04489833333333334 & lng=51.5
-            srvData = "[{\"Latitude\":\"\",\"Longitude\":\"\",\"StationName\":\"Lea Bridge\"},{\"Latitude\":\"51.126\",\"Longitude\":\"1.3056\",\"StationName\":\"Dover Priory\"},{\"Latitude\":\"51.1706\",\"Longitude\":\"1.349\",\"StationName\":\"Martin Mill\"},{\"Latitude\":\"51.2035\",\"Longitude\":\"1.383\",\"StationName\":\"Walmer\"},{\"Latitude\":\"51.0829\",\"Longitude\":\"1.1697\",\"StationName\":\"Folkestone Central\"}]";
-            Log.v("degug", "Server down error, test Data in use" + srvData);
-        }
-            createStationList();
+//        if(newData != null) {
+//
+//        } else {
+//            Log.w("SERVER_ERROR", "USING: TestData for lat=0.04489833333333334 & lng=51.5");
+//            srvData = "[{\"Latitude\":\"\",\"Longitude\":\"\",\"StationName\":\"Lea Bridge\"}," +
+//                    "{\"Latitude\":\"51.126\",\"Longitude\":\"1.3056\",\"StationName\":\"Dover Priory\"}," +
+//                    "{\"Latitude\":\"51.1706\",\"Longitude\":\"1.349\",\"StationName\":\"Martin Mill\"}," +
+//                    "{\"Latitude\":\"51.2035\",\"Longitude\":\"1.383\",\"StationName\":\"Walmer\"}," +
+//                    "{\"Latitude\":\"51.0829\",\"Longitude\":\"1.1697\",\"StationName\":\"Folkestone Central\"}]";
+//            Log.w("SERVER_ERROR", "Server down error, test Data in use" + srvData);
+//        }
+
+//            createStationList();
 //            updateList(adapter, listView);
     }
 

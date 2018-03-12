@@ -16,7 +16,6 @@ public class ServerMessageParser {
     int stationLatPos = 3;
     int stationLongPos = 5;
     int listItems = 8;
-    int delimiterError = 1;
 
 
     /**
