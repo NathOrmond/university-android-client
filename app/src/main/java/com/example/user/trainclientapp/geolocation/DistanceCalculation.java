@@ -11,6 +11,15 @@ public class DistanceCalculation {
     public static final Double R = 6372.8; //kilometers
 
 
+    /**
+     * Calculates distance in km between two positions on the earths surface
+     *
+     * @param lat1
+     * @param lon1
+     * @param lat2
+     * @param lon2
+     * @return distance
+     */
 
     public Double Haversine(double lat1, double lon1, double lat2, double lon2){
         double dLat = Math.toRadians(lat2 - lat1);

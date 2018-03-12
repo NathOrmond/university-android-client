@@ -41,6 +41,9 @@ public class NearestStationListActivity extends AppCompatActivity {
         activityMethod();
     }
 
+    /**
+     * Runs the main method sequence of subroutines for this activity
+     */
 
     private void activityMethod(){
         updateMyGPS();
@@ -75,8 +78,6 @@ public class NearestStationListActivity extends AppCompatActivity {
         new URLASyncTask(this, latitudeString, longitudeString).execute();
 
     }
-
-
 
     /**
      * re runs methods when user clicks button to refresh

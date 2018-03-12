@@ -6,6 +6,15 @@ package com.example.user.trainclientapp.servermessageparsing;
 
 public class ServerMessageStringManipulator {
 
+    /**
+     *
+     * Takes the raw server data as a string
+     * removes any delimeters, checks for empty values
+     * and returns each data as a position of a String[]
+     *
+     * @param rawServerData
+     * @return formattedData
+     */
 
     public String[] formatServerData(String rawServerData){
 

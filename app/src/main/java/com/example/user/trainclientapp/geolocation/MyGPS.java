@@ -47,8 +47,10 @@ public class MyGPS extends NearestStationListActivity {
     }
 
 
-
-
+    /**
+     * Starts the Listener
+     * Opens up App settings if provider is disabled
+     */
     private void initialiseListener(){
         listener = new LocationListener() {
             @Override
@@ -75,6 +77,9 @@ public class MyGPS extends NearestStationListActivity {
         };
     }
 
+    /**
+     * Checks android GPS Location permissions have been granted to app
+     */
     private void checkForPermissions(){
         if (ActivityCompat.checkSelfPermission(parent, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(parent, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -102,10 +107,9 @@ public class MyGPS extends NearestStationListActivity {
         }
     }
 
-    public void onRequestPermissionResult(int requestCode, String[] permissions, int[] grantResults){
-        parent.onRequestPermissionsResult(requestCode, permissions, grantResults);
-    }
-
+    /**
+     * Requests GPS updates from Android
+     */
     @SuppressLint("MissingPermission")
     private void configureUpdateRequest() {
         locationManager.requestLocationUpdates("gps", 0, 0, listener);
@@ -132,7 +136,9 @@ public class MyGPS extends NearestStationListActivity {
         return myLong;
     }
 
-
+    /**
+     * updates my latitude and longitude variables when called to current location
+     */
     @SuppressLint("MissingPermission")
     private void updateMyLocation() {
         List<String> providers = locationManager.getProviders(true);

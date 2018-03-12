@@ -22,7 +22,13 @@ public class StationListFactory {
         formatSrvData(serverRawData, myLat, myLong);
     }
 
-
+    /**
+     * Creates an ArrayList<TrainStation>() populated with raw server Data
+     *
+     * @param serverRawData
+     * @param myLat
+     * @param myLong
+     */
     private void formatSrvData(String serverRawData, Double myLat, Double myLong){
 
             ServerMessageParser listPopulator = new ServerMessageParser();
@@ -45,13 +51,14 @@ public class StationListFactory {
 
     }
 
+    /**
+     * @return a populated ArrayList<TrainStation>()
+     */
+
     public ArrayList<TrainStation> getTrainStationArrayList() {
         return trainStationArrayList;
     }
 
-    public void setTrainStationArrayList(ArrayList<TrainStation> trainStationArrayList) {
-        this.trainStationArrayList = trainStationArrayList;
-    }
 
 
 }

@@ -19,6 +19,17 @@ public class ServerMessageParser {
     int delimiterError = 1;
 
 
+    /**
+     *
+     * Takes the list position for which this TrainStation()
+     * is being created and a String[] of formatted data,
+     * returns the populated TrainStation()
+     *
+     * @param listPosition
+     * @param formattedData
+     * @return TrainStation
+     */
+
     public TrainStation createTrainStationForListPos(int listPosition, String[] formattedData){
         TrainStation station = new TrainStation();
         station.setStationName(extractStationName(listPosition, formattedData));
@@ -26,6 +37,14 @@ public class ServerMessageParser {
         station.setStationLong(extractStationLong(listPosition, formattedData));
         return station;
     }
+
+    /**
+     * Populates a TrainStation() with its station Name
+     *
+     * @param listPosition
+     * @param formattedData
+     * @return stationName
+     */
 
     public String extractStationName(int listPosition, String[] formattedData){
         String stationName = formattedData[(listItems*listPosition) + stationNamePos];
@@ -36,6 +55,14 @@ public class ServerMessageParser {
 
         return stationName;
     }
+
+    /**
+     * Populates a TrainStation() with its Latitude
+     *
+     * @param listPosition
+     * @param formattedData
+     * @return stationLatitude
+     */
 
     public Double extractStationLat(int listPosition, String[] formattedData){
         String extractedString = formattedData[(listItems*listPosition) + stationLatPos];
@@ -50,6 +77,14 @@ public class ServerMessageParser {
         return stationLat;
     }
 
+    /**
+     * populates a TrainStation() with its Longitude
+     *
+     * @param listPosition
+     * @param formattedData
+     * @return stationLongitude
+     */
+
     public Double extractStationLong(int listPosition, String[] formattedData){
         String extractedString = formattedData[(listItems*listPosition) + stationLongPos];
         Double stationLong;
@@ -62,6 +97,16 @@ public class ServerMessageParser {
         this.stationLong = stationLong;
         return stationLong;
     }
+
+    /**
+     * populates a TrainStation() with its calculated
+     * distance from current location.
+     *
+     * @param station
+     * @param myLat
+     * @param myLong
+     * @return TrainStation (with distance added)
+     */
 
     public TrainStation addStationDistance(TrainStation station, Double myLat, Double myLong){
         DistanceCalculation calculation = new DistanceCalculation();
