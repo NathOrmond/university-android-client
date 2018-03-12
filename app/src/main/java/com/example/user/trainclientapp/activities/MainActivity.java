@@ -37,7 +37,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onRestart() {
         super.onRestart();
-        checkPermissions();
+        if(!permissions) {
+            checkPermissions();
+        } else {
+            startNearestStationList();
+        }
 
     }
 
@@ -78,9 +82,13 @@ public class MainActivity extends AppCompatActivity {
 
     public void click(View v){
         if(permissions) {
-            Intent startIntent = new Intent(getApplicationContext(), NearestStationListActivity.class);
-            startActivity(startIntent);
+            startNearestStationList();
         }
+    }
+
+    private void startNearestStationList(){
+        Intent startIntent = new Intent(getApplicationContext(), NearestStationListActivity.class);
+        startActivity(startIntent);
     }
 
 
