@@ -35,17 +35,12 @@ public class StationListFactory {
             Log.i("StationsArray", "Array Created Succesfully");
             Log.i("StationsArray", String.valueOf(formattedData.length));
 
-        Log.w("formatted data position", formattedData[2]);
-        Log.w("formatted data position", formattedData[3]);
-        Log.w("formatted data position", formattedData[4]);
-        Log.w("formatted data position", formattedData[5]);
-        Log.w("formatted data position", formattedData[6]);
-        Log.w("formatted data position", formattedData[7]);
-
         for(int i = 0; i < listLength; i++) {
+            Log.i("new station", "[" + i + "] -----------------------------" );
             station = listPopulator.createTrainStationForListPos(i,formattedData);
             station = listPopulator.addStationDistance(station,myLat,myLong);
             trainStationArrayList.add(i, station);
+
         }
 
     }
