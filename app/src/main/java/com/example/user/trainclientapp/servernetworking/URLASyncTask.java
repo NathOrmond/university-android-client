@@ -1,6 +1,7 @@
 package com.example.user.trainclientapp.servernetworking;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
 import com.example.user.trainclientapp.activities.NearestStationListActivity;
 
@@ -19,7 +20,7 @@ import java.net.URL;
 public class URLASyncTask extends AsyncTask<String, Integer, String> {
 
     NearestStationListActivity _parent;
-    String urlString = "http://http://zebedee.kriswelsh.com:8080/stations?";
+    String urlString = "http://zebedee.kriswelsh.com:8080/stations?";
     String lat, lng;
 
     public URLASyncTask(NearestStationListActivity parent, String myLat, String myLong)  {
@@ -33,11 +34,15 @@ public class URLASyncTask extends AsyncTask<String, Integer, String> {
     protected String doInBackground(String... strings) {
         HttpURLConnection connection = null;
         BufferedReader reader = null;
+        urlString = urlString + "lat="+ lat + "&lng=" + lng;
+
         try {
-            urlString = urlString + "lat="+ lat + "&lng=" + lng;
+
             URL url = new URL(urlString);
             connection = (HttpURLConnection) url.openConnection();
             connection.connect();
+
+            Log.i("NETWORK_STATUS", "connected");
 
             InputStream stream = connection.getInputStream();
 

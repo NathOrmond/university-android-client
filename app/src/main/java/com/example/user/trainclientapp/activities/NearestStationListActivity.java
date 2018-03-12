@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.example.user.trainclientapp.R;
 import com.example.user.trainclientapp.geolocation.MyGPS;
+import com.example.user.trainclientapp.servernetworking.URLASyncTask;
 import com.example.user.trainclientapp.stationlist.StationListFactory;
 import com.example.user.trainclientapp.stationlist.StationsAdapter;
 import com.example.user.trainclientapp.stationlist.TrainStation;
@@ -28,6 +30,7 @@ public class NearestStationListActivity extends AppCompatActivity {
     int listLength;
     MyGPS myGPS;
     Double myLatitude, myLongitude;
+    TextView serverDowned;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,7 +39,8 @@ public class NearestStationListActivity extends AppCompatActivity {
         refreshButton = (Button) findViewById(R.id.refreshButton);
         listView = (ListView) findViewById(R.id.stationList);
         listLength = 5;
-
+        serverDowned = (TextView) findViewById(R.id.serverDowned);
+        serverDowned.setVisibility(View.INVISIBLE);
         activityMethod();
     }
 
@@ -80,7 +84,7 @@ public class NearestStationListActivity extends AppCompatActivity {
         Log.i("latitudeString", latitudeString);
         Log.i("longitudeString", longitudeString);
 
-//        new URLASyncTask(this, latitudeString, longitudeString).execute();
+        new URLASyncTask(this, latitudeString, longitudeString).execute();
 
     }
 
@@ -98,23 +102,25 @@ public class NearestStationListActivity extends AppCompatActivity {
 
     public void updataData(String newData){
 
-        this.srvData =  newData;
-        Log.i("SERVER_DATA", srvData);
+        if(newData != null) {
+            this.srvData =  newData;
+            serverDowned.setVisibility(View.INVISIBLE);
+            listView.setVisibility(View.VISIBLE);
+            Log.i("SERVER_DATA", srvData);
+        } else {
+            listView.setVisibility(View.INVISIBLE);
+            serverDowned.setVisibility(View.VISIBLE);
+            Log.w("SERVER_ERROR", "USING: TestData for lat=0.04489833333333334 & lng=51.5");
+            srvData = "[{\"Latitude\":\"\",\"Longitude\":\"\",\"StationName\":\"Lea Bridge\"}," +
+                    "{\"Latitude\":\"51.126\",\"Longitude\":\"1.3056\",\"StationName\":\"Dover Priory\"}," +
+                    "{\"Latitude\":\"51.1706\",\"Longitude\":\"1.349\",\"StationName\":\"Martin Mill\"}," +
+                    "{\"Latitude\":\"51.2035\",\"Longitude\":\"1.383\",\"StationName\":\"Walmer\"}," +
+                    "{\"Latitude\":\"51.0829\",\"Longitude\":\"1.1697\",\"StationName\":\"Folkestone Central\"}]";
+            Log.w("SERVER_ERROR", "Server down error, test Data in use" + srvData);
+        }
 
-//        if(newData != null) {
-//
-//        } else {
-//            Log.w("SERVER_ERROR", "USING: TestData for lat=0.04489833333333334 & lng=51.5");
-//            srvData = "[{\"Latitude\":\"\",\"Longitude\":\"\",\"StationName\":\"Lea Bridge\"}," +
-//                    "{\"Latitude\":\"51.126\",\"Longitude\":\"1.3056\",\"StationName\":\"Dover Priory\"}," +
-//                    "{\"Latitude\":\"51.1706\",\"Longitude\":\"1.349\",\"StationName\":\"Martin Mill\"}," +
-//                    "{\"Latitude\":\"51.2035\",\"Longitude\":\"1.383\",\"StationName\":\"Walmer\"}," +
-//                    "{\"Latitude\":\"51.0829\",\"Longitude\":\"1.1697\",\"StationName\":\"Folkestone Central\"}]";
-//            Log.w("SERVER_ERROR", "Server down error, test Data in use" + srvData);
-//        }
-
-//            createStationList();
-//            updateList(adapter, listView);
+            createStationList();
+            updateList(adapter, listView);
     }
 
     /**
