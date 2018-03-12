@@ -15,7 +15,7 @@ public class ServerMessageParser {
     int stationNamePos = 7;
     int stationLatPos = 3;
     int stationLongPos = 5;
-    int listItems = 6;
+    int listItems = 8;
     int delimiterError = 1;
 
 
@@ -28,22 +28,37 @@ public class ServerMessageParser {
     }
 
     public String extractStationName(int listPosition, String[] formattedData){
-        Log.i("Stations Name Added", formattedData[(listItems*listPosition) + stationNamePos]);
-        return formattedData[(listItems*listPosition) + stationNamePos];
+        String stationName = formattedData[(listItems*listPosition) + stationNamePos];
+        Log.i("Stations Name Added", stationName);
+        if(stationName.equals("NO_VALUE")) {
+            stationName = "No Station Name";
+        }
+
+        return stationName;
     }
 
     public Double extractStationLat(int listPosition, String[] formattedData){
         String extractedString = formattedData[(listItems*listPosition) + stationLatPos];
+        Double stationLat;
         Log.i("Latitude Added" ,formattedData[(listItems*listPosition) + stationLatPos] );
-        Double stationLat = Double.parseDouble(extractedString);
+        if(extractedString.equals("NO_VALUE")) {
+            stationLat = Double.valueOf(0);
+        }else {
+        stationLat = Double.parseDouble(extractedString);
+    }
         this.stationLat = stationLat;
         return stationLat;
     }
 
     public Double extractStationLong(int listPosition, String[] formattedData){
         String extractedString = formattedData[(listItems*listPosition) + stationLongPos];
+        Double stationLong;
         Log.i("Longitude Added" ,formattedData[(listItems*listPosition) + stationLongPos] );
-        Double stationLong = Double.parseDouble(extractedString);
+        if(extractedString.equals("NO_VALUE")) {
+            stationLong = Double.valueOf(0);
+        }else {
+            stationLong = Double.parseDouble(extractedString);
+        }
         this.stationLong = stationLong;
         return stationLong;
     }

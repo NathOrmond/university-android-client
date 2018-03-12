@@ -29,6 +29,9 @@ public class URLASyncTask extends AsyncTask<String, Integer, String> {
 //        try {
 //
 //            URL url = new URL(urlString);
+//
+//            Log.w("code reaches here", String.valueOf(url));
+//
 //            connection = (HttpURLConnection) url.openConnection();
 //            connection.connect();
 //
@@ -60,7 +63,7 @@ public class URLASyncTask extends AsyncTask<String, Integer, String> {
 //                e.printStackTrace();
 //            }
 //        }
-
+//
         return null;
     }
 

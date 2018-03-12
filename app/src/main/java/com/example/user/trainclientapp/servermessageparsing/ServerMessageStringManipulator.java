@@ -13,7 +13,10 @@ public class ServerMessageStringManipulator {
         String[] formattedData = rawServerData.split(delimiters);
 
         for(int i = 0; i < formattedData.length; i++) {
-            formattedData[i] = formattedData[i].replace("\"","");
+            formattedData[i] = formattedData[i].replace("\"", "");
+            if(formattedData[i].equals("")) {
+                formattedData[i] = formattedData[i].replace("", "NO_VALUE");
+            }
         }
         return formattedData;
     }

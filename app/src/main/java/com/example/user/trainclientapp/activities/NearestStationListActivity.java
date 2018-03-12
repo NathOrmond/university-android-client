@@ -36,7 +36,7 @@ public class NearestStationListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_nearest_station_list);
         refreshButton = (Button) findViewById(R.id.refreshButton);
         listView = (ListView) findViewById(R.id.stationList);
-        listLength = 4;
+        listLength = 5;
 
         activityMethod();
     }
@@ -97,11 +97,8 @@ public class NearestStationListActivity extends AppCompatActivity {
             Log.v("Server Has Data", srvData);
 
         } else {
-            srvData = "[{\"Latitude\":\"100\",\"Longitude\":\"60\",\"StationName\":\"Station1\",\n" +
-                    "\"Latitude\":\"100\",\"Longitude\":\"60\",\"StationName\":\"Station2\",\n" +
-                    "\"Latitude\":\"100\",\"Longitude\":\"60\",\"StationName\":\"Station3\",\n" +
-                    "\"Latitude\":\"100\",\"Longitude\":\"60\",\"StationName\":\"Station4\",\n" +
-                    "\"Latitude\":\"100\",\"Longitude\":\"60\",\"StationName\":\"Station5\"}]";
+            //TestData for lat=0.04489833333333334 & lng=51.5
+            srvData = "[{\"Latitude\":\"\",\"Longitude\":\"\",\"StationName\":\"Lea Bridge\"},{\"Latitude\":\"51.126\",\"Longitude\":\"1.3056\",\"StationName\":\"Dover Priory\"},{\"Latitude\":\"51.1706\",\"Longitude\":\"1.349\",\"StationName\":\"Martin Mill\"},{\"Latitude\":\"51.2035\",\"Longitude\":\"1.383\",\"StationName\":\"Walmer\"},{\"Latitude\":\"51.0829\",\"Longitude\":\"1.1697\",\"StationName\":\"Folkestone Central\"}]";
             Log.v("degug", "Server down error, test Data in use" + srvData);
         }
             createStationList();
