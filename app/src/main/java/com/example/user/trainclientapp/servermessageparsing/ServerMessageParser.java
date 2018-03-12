@@ -12,10 +12,11 @@ import com.example.user.trainclientapp.stationlist.TrainStation;
 public class ServerMessageParser {
 
     Double stationLat, stationLong;
-    int stationNamePos = 5;
-    int stationLatPos = 1;
-    int stationLongPos = 3;
+    int stationNamePos = 7;
+    int stationLatPos = 3;
+    int stationLongPos = 5;
     int listItems = 6;
+    int delimiterError = 1;
 
 
     public TrainStation createTrainStationForListPos(int listPosition, String[] formattedData){
@@ -27,12 +28,13 @@ public class ServerMessageParser {
     }
 
     public String extractStationName(int listPosition, String[] formattedData){
-        Log.v("Stations Name", formattedData[(listItems*listPosition) + stationNamePos]);
+        Log.i("Stations Name Added", formattedData[(listItems*listPosition) + stationNamePos]);
         return formattedData[(listItems*listPosition) + stationNamePos];
     }
 
     public Double extractStationLat(int listPosition, String[] formattedData){
         String extractedString = formattedData[(listItems*listPosition) + stationLatPos];
+        Log.i("Latitude Added" ,formattedData[(listItems*listPosition) + stationLatPos] );
         Double stationLat = Double.parseDouble(extractedString);
         this.stationLat = stationLat;
         return stationLat;
@@ -40,6 +42,7 @@ public class ServerMessageParser {
 
     public Double extractStationLong(int listPosition, String[] formattedData){
         String extractedString = formattedData[(listItems*listPosition) + stationLongPos];
+        Log.i("Longitude Added" ,formattedData[(listItems*listPosition) + stationLongPos] );
         Double stationLong = Double.parseDouble(extractedString);
         this.stationLong = stationLong;
         return stationLong;

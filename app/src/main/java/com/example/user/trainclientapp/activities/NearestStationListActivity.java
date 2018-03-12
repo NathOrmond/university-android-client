@@ -34,17 +34,14 @@ public class NearestStationListActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_nearest_station_list);
-
         refreshButton = (Button) findViewById(R.id.refreshButton);
         listView = (ListView) findViewById(R.id.stationList);
-
+        listLength = 4;
     }
 
 
     private void activityMethod(){
         updateMyGPS();
-        Log.v("latitude", String.valueOf(myLatitude));
-        Log.v("longitude", String.valueOf(myLongitude));
         getNearestStationDataFromSrv();
     }
 
@@ -98,15 +95,24 @@ public class NearestStationListActivity extends AppCompatActivity {
      */
 
     public void updataData(String newData){
-        this.srvData =  newData;
-        Log.v("degug", srvData);
 
-        if(srvData.equals(dataIsNotNull())) {
-//        createStationList();
-//        updateList(adapter, listView);
+
+
+        if(newData != null) {
+            this.srvData =  newData;
+            Log.v("Server Has Data", srvData);
+
         } else {
-        // Server is down
+
+            Log.v("degug", "Server down error, test Data in use");
+            srvData = "[{\"Latitude\":\"100\",\"Longitude\":\"60\",\"StationName\":\"Station1\",\n" +
+                    "\"Latitude\":\"100\",\"Longitude\":\"60\",\"StationName\":\"Station2\",\n" +
+                    "\"Latitude\":\"100\",\"Longitude\":\"60\",\"StationName\":\"Station3\",\n" +
+                    "\"Latitude\":\"100\",\"Longitude\":\"60\",\"StationName\":\"Station4\",\n" +
+                    "\"Latitude\":\"100\",\"Longitude\":\"60\",\"StationName\":\"Station5\"}]";
         }
+            createStationList();
+//        updateList(adapter, listView);
     }
 
     /**
@@ -114,7 +120,6 @@ public class NearestStationListActivity extends AppCompatActivity {
      */
 
     private void createStationList(){
-        Log.v("debug", srvData);
         StationListFactory stationListFactory = new StationListFactory(srvData,  myLatitude, myLongitude, listLength);
 
 
