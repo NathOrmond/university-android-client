@@ -13,21 +13,39 @@ public class DistanceDisplayForm {
         String output, unit;
         Double i = (input*1000);
         Double rounded;
-        int j;
+        int precision;
+        int k;
+        BigDecimal bd;
 
         if(i > 1000){
-            BigDecimal bd = new BigDecimal(input);
-            bd = bd.round(new MathContext(3));
-            rounded = bd.doubleValue();
-            unit = "kilometers";
+            precision = 3;
+             bd = new BigDecimal(input);
+            unit = " kilometers";
         } else {
-            BigDecimal bd = new BigDecimal(i);
-            bd = bd.round(new MathContext(4));
-            rounded = bd.doubleValue();
-            unit = "meters";
+             bd = new BigDecimal(i);
+            if(i > 100) {
+                precision = 3;
+                bd = bd.round(new MathContext(3));
+            } else {
+                precision = 2;
+                bd = bd.round(new MathContext(2));
+            }
+            unit = " meters";
         }
 
-        output = Double.toString(rounded) + " " + unit;
+
+
+        bd = bd.round(new MathContext(precision));
+        rounded = bd.doubleValue();
+
+        if(i > 1000) {
+            output = rounded + "";
+        } else {
+            k = rounded.intValue();
+            output = k + "";
+        }
+
+        output = output + unit;
         return output;
     }
 
