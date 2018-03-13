@@ -70,6 +70,9 @@ public class NearestStationListActivity extends AppCompatActivity {
         myGPS = new MyGPS(this);
         myLatitude = myGPS.getMyLat();
         myLongitude = myGPS.getMyLong();
+
+        Log.i("LATITUDE_FROM_MYGPS", String.valueOf(myLatitude));
+        Log.i("LONGITUDE_FROM_MYGPS", String.valueOf(myLongitude));
     }
 
     /**
@@ -78,13 +81,14 @@ public class NearestStationListActivity extends AppCompatActivity {
 
     private void getNearestStationDataFromSrv(){
         String latitudeString, longitudeString;
+
         latitudeString = myLatitude.toString();
         longitudeString = myLongitude.toString();
 
-        Log.i("latitudeString", longitudeString);
-        Log.i("longitudeString", latitudeString);
+        Log.i("LATITUDE_AS_STRING", latitudeString);
+        Log.i("LONGITUDE_AS_STRING", longitudeString);
 
-        new URLASyncTask(this, latitudeString, longitudeString).execute();
+        new URLASyncTask(this, latitudeString , longitudeString).execute();
 
     }
 

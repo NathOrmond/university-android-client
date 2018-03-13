@@ -1,32 +1,47 @@
 package com.example.user.trainclientapp.servermessageparsing;
 
+import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by User on 08/03/2018.
  */
 
 public class ServerMessageStringManipulator {
 
-    /**
-     *
-     * Takes the raw server data as a string
-     * removes any delimeters, checks for empty values
-     * and returns each data as a position of a String[]
-     *
-     * @param rawServerData
-     * @return formattedData
-     */
+    public String jSONString(String rawServerData) throws JSONException {
+        String output;
+        String[] splitJSON = splitJSON(rawServerData);
 
-    public String[] formatServerData(String rawServerData){
 
-        String delimiters = "[-\\t,;:\\[\\](){}]";
-        String[] formattedData = rawServerData.split(delimiters);
+        Log.i("JSON_SPLIT", splitJSON[0]);
+        Log.i("JSON_SPLIT", splitJSON[1]);
+        Log.i("JSON_SPLIT", splitJSON[2]);
+        Log.i("JSON_SPLIT", splitJSON[3]);
+        Log.i("JSON_SPLIT", splitJSON[4]);
+        Log.i("JSON_SPLIT", splitJSON[5]);
 
-        for(int i = 0; i < formattedData.length; i++) {
-            formattedData[i] = formattedData[i].replace("\"", "");
-            if(formattedData[i].equals("")) {
-                formattedData[i] = formattedData[i].replace("", "NO_VALUE");
-            }
-        }
-        return formattedData;
+        JSONObject json = new JSONObject(splitJSON[0]);
+        output = json.getString("StationName");
+        return output;
     }
+
+    public String[] splitJSON(String rawData){
+        String[] splitJSON = rawData.split("\\}");
+        Log.i("JSON_ITEMS", String.valueOf(splitJSON.length));
+
+        for(int i = 0; i < splitJSON.length; i++) {
+            splitJSON[i] = splitJSON[i].replace("[","");
+            splitJSON[i] = splitJSON[i].replace("]","");
+            splitJSON[i] = splitJSON[i].replace(",{","{" );
+            splitJSON[i] = splitJSON[i] +"}";
+        }
+
+
+
+        return splitJSON;
+    }
+
 }

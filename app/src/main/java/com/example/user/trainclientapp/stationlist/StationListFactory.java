@@ -1,7 +1,5 @@
 package com.example.user.trainclientapp.stationlist;
 
-import android.util.Log;
-
 import com.example.user.trainclientapp.servermessageparsing.ServerMessageParser;
 import com.example.user.trainclientapp.servermessageparsing.ServerMessageStringManipulator;
 
@@ -31,22 +29,18 @@ public class StationListFactory {
      */
     private void formatSrvData(String serverRawData, Double myLat, Double myLong){
 
-        ServerMessageParser listPopulator = new ServerMessageParser();
-        ServerMessageStringManipulator dataExtractor = new ServerMessageStringManipulator();
-        trainStationArrayList = new ArrayList<TrainStation>();
+        ServerMessageStringManipulator formatter = new ServerMessageStringManipulator();
+        String[] jsonItemArray = formatter.splitJSON(serverRawData);
+
         TrainStation station;
-        String[] formattedData = dataExtractor.formatServerData(serverRawData);
-
-        Log.i("StationsArray", "Server data formatted to >>");
-        Log.i("number of data items", String.valueOf(formattedData.length));
-
-        for(int i = 0; i < listLength; i++) {
-            Log.i("new station", "[" + i + "] -----------------------------" );
-            station = listPopulator.createTrainStationForListPos(i,formattedData);
-            station = listPopulator.addStationDistance(station,myLat,myLong);
-            trainStationArrayList.add(i, station);
-
+        ArrayList<TrainStation> stationList = new ArrayList<TrainStation>();
+        ServerMessageParser parser = new ServerMessageParser();
+        for (int listPosition = 0; listPosition < listLength; listPosition++) {
+           station =  parser.createTrainStationForListPos(listPosition, jsonItemArray, myLat, myLong);
+           stationList.add(station);
         }
+
+        this.trainStationArrayList = stationList;
 
     }
 

@@ -5,6 +5,9 @@ import android.util.Log;
 import com.example.user.trainclientapp.geolocation.DistanceCalculation;
 import com.example.user.trainclientapp.stationlist.TrainStation;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 /**
  * Created by Nathan on 06/03/2018.
  */
@@ -12,10 +15,7 @@ import com.example.user.trainclientapp.stationlist.TrainStation;
 public class ServerMessageParser {
 
     Double stationLat, stationLong;
-    int stationNamePos = 7;
-    int stationLatPos = 3;
-    int stationLongPos = 5;
-    int listItems = 8;
+
 
 
     /**
@@ -25,15 +25,17 @@ public class ServerMessageParser {
      * returns the populated TrainStation()
      *
      * @param listPosition
-     * @param formattedData
+     * @param jsonFormatData
      * @return TrainStation
      */
 
-    public TrainStation createTrainStationForListPos(int listPosition, String[] formattedData){
+    public TrainStation createTrainStationForListPos(int listPosition, String[] jsonFormatData, Double myLat, Double myLong){
+        Log.i("ADDING STATION", "----------" + listPosition);
         TrainStation station = new TrainStation();
-        station.setStationName(extractStationName(listPosition, formattedData));
-        station.setStationLat(extractStationLat(listPosition, formattedData));
-        station.setStationLong(extractStationLong(listPosition, formattedData));
+        station.setStationName(extractStationName(listPosition, jsonFormatData));
+        station.setStationLat(extractStationLat(listPosition,jsonFormatData, myLat));
+        station.setStationLong(extractStationLong(listPosition,jsonFormatData,myLong));
+        addStationDistance(station,myLat,myLong);
         return station;
     }
 
@@ -46,14 +48,22 @@ public class ServerMessageParser {
      */
 
     public String extractStationName(int listPosition, String[] formattedData){
-        String stationName = formattedData[(listItems*listPosition) + stationNamePos];
-        Log.i("Stations Name Added", stationName);
-        if(stationName.equals("NO_VALUE")) {
-            stationName = "No Station Name";
+        String stationName = "NONE_FOUND";
+        JSONObject json;
+
+        if(!stationName.equals("")) {
+            try {
+                json = new JSONObject(formattedData[listPosition]);
+                stationName = json.getString("StationName");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
         }
 
-        return stationName;
+        Log.i("STATION_NAME", stationName);
+         return stationName;
     }
+
 
     /**
      * Populates a TrainStation() with its Latitude
@@ -63,15 +73,27 @@ public class ServerMessageParser {
      * @return stationLatitude
      */
 
-    public Double extractStationLat(int listPosition, String[] formattedData){
-        String extractedString = formattedData[(listItems*listPosition) + stationLatPos];
+    public Double extractStationLat(int listPosition, String[] formattedData, Double myLat){
+        String stationLatPos = "NONE_FOUND";
+        JSONObject json;
         Double stationLat;
-        Log.i("Latitude Added" ,formattedData[(listItems*listPosition) + stationLatPos] );
-        if(extractedString.equals("NO_VALUE")) {
-            stationLat = Double.valueOf(0);
-        }else {
-        stationLat = Double.parseDouble(extractedString);
-    }
+
+
+            try {
+                json = new JSONObject(formattedData[listPosition]);
+                stationLatPos = json.getString("Latitude");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+         if((stationLatPos.equals("")) || (stationLatPos == null))   {
+            stationLat = myLat;
+        } else {
+             stationLat = Double.parseDouble(stationLatPos);
+            }
+
+        Log.i("LONGITUDE" ,stationLatPos );
+
         this.stationLat = stationLat;
         return stationLat;
     }
@@ -84,16 +106,28 @@ public class ServerMessageParser {
      * @return stationLongitude
      */
 
-    public Double extractStationLong(int listPosition, String[] formattedData){
-        String extractedString = formattedData[(listItems*listPosition) + stationLongPos];
+    public Double extractStationLong(int listPosition, String[] formattedData, Double myLong){
+        String stationLongPos = "NONE_FOUND";
+        JSONObject json;
         Double stationLong;
-        Log.i("Longitude Added" ,formattedData[(listItems*listPosition) + stationLongPos] );
-        if(extractedString.equals("NO_VALUE")) {
-            stationLong = Double.valueOf(0);
-        }else {
-            stationLong = Double.parseDouble(extractedString);
+
+            try {
+                json = new JSONObject(formattedData[listPosition]);
+                stationLongPos = json.getString("Longitude");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+
+
+        if((stationLongPos.equals("")) || (stationLongPos == null))   {
+            stationLong = myLong;
+        } else {
+            stationLong = Double.parseDouble(stationLongPos);
         }
-        this.stationLong = stationLong;
+
+        Log.i("LONGITUDE" ,stationLongPos );
+
+        this.stationLat = stationLong;
         return stationLong;
     }
 
@@ -114,7 +148,5 @@ public class ServerMessageParser {
         Log.i("Distance From Me", String.valueOf(distance));
         return station;
     }
-
-
 
 }
