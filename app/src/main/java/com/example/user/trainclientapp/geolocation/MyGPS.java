@@ -12,7 +12,7 @@ import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
 
-import com.example.user.trainclientapp.activities.MainActivity;
+import com.example.user.trainclientapp.activities.StartAppActivity;
 import com.example.user.trainclientapp.activities.NearestStationListActivity;
 
 import java.util.List;
@@ -27,7 +27,7 @@ public class MyGPS extends NearestStationListActivity {
     LocationManager locationManager;
     Location location;
     NearestStationListActivity parent = null;
-    MainActivity mainParent;
+    StartAppActivity mainParent;
 
 
     /**

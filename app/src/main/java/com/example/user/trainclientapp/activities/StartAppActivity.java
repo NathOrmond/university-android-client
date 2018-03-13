@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.example.user.trainclientapp.R;
 
-public class MainActivity extends AppCompatActivity {
+public class StartAppActivity extends AppCompatActivity {
 
     Button findStationBtn, changePermissions;
     TextView info;
@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.start_app_activity);
 
         info =  (TextView) findViewById(R.id.info);
         findStationBtn = (Button) findViewById(R.id.stationButton);

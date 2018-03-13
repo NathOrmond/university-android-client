@@ -1,4 +1,4 @@
-package com.example.user.trainclientapp.stationlist;
+package com.example.user.trainclientapp.listdisplay;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.example.user.trainclientapp.R;
 import com.example.user.trainclientapp.activities.NearestStationListActivity;
+import com.example.user.trainclientapp.stationlist.TrainStation;
 
 import java.util.ArrayList;
 
@@ -58,8 +59,10 @@ public class StationsAdapter extends ArrayAdapter<TrainStation> {
                 holder = (ViewHolder) vi.getTag();
             }
 
+            DistanceDisplayForm distanceDisplayForm = new DistanceDisplayForm();
+
             holder.display_station_distance.setText(stationList.get(position).getStationName());
-            holder.display_station_name.setText(Double.toString(stationList.get(position).getDistanceNum()));
+            holder.display_station_name.setText(distanceDisplayForm.displayProper(stationList.get(position).getDistanceNum()));
 
 
         } catch (Exception e) {
