@@ -1,6 +1,5 @@
 package com.example.user.trainclientapp.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,9 +11,9 @@ import android.widget.TextView;
 
 import com.example.user.trainclientapp.R;
 import com.example.user.trainclientapp.geolocation.MyGPS;
+import com.example.user.trainclientapp.listdisplay.StationsAdapter;
 import com.example.user.trainclientapp.servernetworking.URLASyncTask;
 import com.example.user.trainclientapp.stationlist.StationListFactory;
-import com.example.user.trainclientapp.listdisplay.StationsAdapter;
 import com.example.user.trainclientapp.stationlist.TrainStation;
 
 import java.util.ArrayList;
@@ -141,7 +140,7 @@ public class NearestStationListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                startNewMapActivity();
+                startNewMap();
             }
         });
 
@@ -152,12 +151,8 @@ public class NearestStationListActivity extends AppCompatActivity {
      * Starts a new Map activity, sends train station array list
      * and my latitude and longitude positions
      */
-    private void startNewMapActivity(){
-        Intent mapIntent = new Intent(getApplicationContext(), MapActivity.class);
-        mapIntent.putExtra("MY_LATITUDE", myLatitude);
-        mapIntent.putExtra("MY_LONGITUDE", myLatitude);
-        mapIntent.putExtra("STATION_LIST", trainStationArrayList);
-        startActivity(mapIntent);
+    private void startNewMap(){
+
     }
 
 }

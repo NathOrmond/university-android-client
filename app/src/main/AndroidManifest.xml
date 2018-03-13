@@ -11,6 +11,7 @@
 
 
 
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -26,11 +27,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".activities.NearestStationListActivity" />
-        <activity android:name=".activities.MapActivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyBnijObC2__cnXhBnunnFzlTTaDMfZFzpE" />
+
     </application>
 
 </manifest>
