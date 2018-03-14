@@ -39,6 +39,8 @@ public class StationsAdapter extends ArrayAdapter<TrainStation> {
     public static class ViewHolder {
         public TextView display_station_name;
         public TextView display_station_distance;
+        public TextView display_station_latitude;
+        public TextView display_station_longitude;
 
     }
 
@@ -50,8 +52,10 @@ public class StationsAdapter extends ArrayAdapter<TrainStation> {
                 vi = inflater.inflate(R.layout.list_layout, null);
                 holder = new ViewHolder();
 
-                holder.display_station_name = (TextView) vi.findViewById(R.id.stationName);
+                holder.display_station_name = (TextView) vi.findViewById(R.id.name);
                 holder.display_station_distance = (TextView) vi.findViewById(R.id.distance);
+                holder.display_station_latitude = (TextView) vi.findViewById(R.id.latitude);
+                holder.display_station_longitude = (TextView) vi.findViewById(R.id.longitude);
 
 
                 vi.setTag(holder);
@@ -61,8 +65,10 @@ public class StationsAdapter extends ArrayAdapter<TrainStation> {
 
             DistanceDisplayForm distanceDisplayForm = new DistanceDisplayForm();
 
-            holder.display_station_distance.setText(stationList.get(position).getStationName());
-            holder.display_station_name.setText(distanceDisplayForm.displayProper(stationList.get(position).getDistanceNum()));
+            holder.display_station_name.setText(stationList.get(position).getStationName());
+            holder.display_station_distance.setText(distanceDisplayForm.displayProper(stationList.get(position).getDistanceNum()));
+            holder.display_station_latitude.setText(Double.toString(stationList.get(position).getStationLat()));
+            holder.display_station_longitude.setText(Double.toString(stationList.get(position).getStationLong()));
 
 
         } catch (Exception e) {

@@ -141,7 +141,17 @@ public class NearestStationListActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                startNewMap();
+                String latitude = ((TextView) view.findViewById(R.id.latitude)).getText().toString();
+                String longitude = ((TextView) view.findViewById(R.id.longitude)).getText().toString();
+                String stationName = ((TextView) view.findViewById(R.id.name)).getText().toString();
+
+                Double passLat, passLong;
+                passLat = Double.parseDouble(latitude);
+                passLong = Double.parseDouble(longitude);
+
+                startNewMap(passLat,passLong,stationName);
+
+
             }
         });
 
@@ -152,9 +162,12 @@ public class NearestStationListActivity extends AppCompatActivity {
      * Starts a new Map activity, sends train station array list
      * and my latitude and longitude positions
      */
-    private void startNewMap(){
-        Intent startIntent = new Intent(getApplicationContext(), MapActivity.class);
-        startActivity(startIntent);
+    private void startNewMap(Double targetLatitude, Double targetLongitude, String targetName){
+        Intent intent = new Intent(getApplicationContext(), MapActivity.class);
+        intent.putExtra("TARGET_LATITUDE", targetLatitude);
+        intent.putExtra("TARGET_LONGITUDE", targetLongitude);
+        intent.putExtra("TARGET_NAME", targetName);
+        startActivity(intent);
     }
 
 }

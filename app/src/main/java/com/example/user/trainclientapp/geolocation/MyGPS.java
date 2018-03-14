@@ -11,9 +11,10 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 
-import com.example.user.trainclientapp.activities.StartAppActivity;
 import com.example.user.trainclientapp.activities.NearestStationListActivity;
+import com.example.user.trainclientapp.activities.StartAppActivity;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class MyGPS extends NearestStationListActivity {
     LocationListener listener;
     LocationManager locationManager;
     Location location;
-    NearestStationListActivity parent = null;
+    AppCompatActivity parent = null;
     StartAppActivity mainParent;
 
 
@@ -35,7 +36,7 @@ public class MyGPS extends NearestStationListActivity {
      * Provided permissions given sets Location() to current GPS data.
      */
     @SuppressLint("MissingPermission")
-    public MyGPS(NearestStationListActivity activity) {
+    public MyGPS(AppCompatActivity activity) {
         this.parent = activity;
             locationManager = (LocationManager) parent.getSystemService(parent.LOCATION_SERVICE);
             refreshUpdate();
