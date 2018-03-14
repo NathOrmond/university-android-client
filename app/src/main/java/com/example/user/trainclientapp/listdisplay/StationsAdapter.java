@@ -36,6 +36,10 @@ public class StationsAdapter extends ArrayAdapter<TrainStation> {
         }
     }
 
+
+    /**
+     * Creates text views to be calibrated against xml text views
+     */
     public static class ViewHolder {
         public TextView display_station_name;
         public TextView display_station_distance;
@@ -44,6 +48,16 @@ public class StationsAdapter extends ArrayAdapter<TrainStation> {
 
     }
 
+
+    /**
+     *
+     * Calibrates against xml_layout input data for list view
+     *
+     * @param position
+     * @param convertView
+     * @param parent
+     * @return
+     */
     public View getView(int position, View convertView, ViewGroup parent) {
         View vi = convertView;
         final ViewHolder holder;

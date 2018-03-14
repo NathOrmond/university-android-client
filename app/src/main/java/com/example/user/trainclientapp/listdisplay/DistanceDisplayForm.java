@@ -9,6 +9,15 @@ import java.math.MathContext;
 
 public class DistanceDisplayForm {
 
+    /**
+     * Formats units and significant figures of
+     * display distance
+     *
+     * @param input
+     * @return output
+     */
+
+
     public String displayProper(Double input){
         String output, unit;
         Double i = (input*1000);
@@ -32,8 +41,6 @@ public class DistanceDisplayForm {
             }
             unit = " meters";
         }
-
-
 
         bd = bd.round(new MathContext(precision));
         rounded = bd.doubleValue();

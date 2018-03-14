@@ -1,23 +1,21 @@
 package com.example.user.trainclientapp.activities;
 
-import android.Manifest;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.provider.Settings;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.user.trainclientapp.R;
+import com.example.user.trainclientapp.geolocation.MyGPS;
 
 public class StartAppActivity extends AppCompatActivity {
 
     Button findStationBtn, changePermissions;
     TextView info;
-    Boolean permissions = false;
+    MyGPS myGPS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,38 +28,44 @@ public class StartAppActivity extends AppCompatActivity {
 
             checkPermissions();
 
-
-
     }
 
     @Override
     protected void onRestart() {
         super.onRestart();
-        if(!permissions) {
-            checkPermissions();
-        } else {
+        if(checkPermissions()) {
             startNearestStationList();
         }
-
     }
 
-    private void checkPermissions()  {
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(checkPermissions()) {
+            startNearestStationList();
+        }
+    }
 
-           if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                   ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+    /**
+     * checks whether location permissions have been granted or not
+     * to application, if they have displays text and button to move to next activity,
+     * if not warns user app needs permissions and displays button taking user to
+     * setting to alter permissions.
+     *
+     * @return permissionsGranted
+     */
+    private boolean checkPermissions()  {
+            myGPS = new MyGPS(this);
+
+           if (!myGPS.checkForPermissions()) {
                info.setText("Permissions must be granted or app cannot be used!");
                findStationBtn.setVisibility(View.INVISIBLE);
                changePermissions.setVisibility(View.VISIBLE);
 
-               this.requestPermissions(new String[]{
-                       Manifest.permission.ACCESS_FINE_LOCATION,
-                       Manifest.permission.ACCESS_COARSE_LOCATION,
-                       Manifest.permission.INTERNET,
-               }, 10);
 
-               return;
+
+               return false;
            } else {
-               permissions = true;
                findStationBtn.setVisibility(View.VISIBLE);
                changePermissions.setVisibility(View.INVISIBLE);
                info.setText("\"Welcome to the train client app. This app requires " +
@@ -72,9 +76,8 @@ public class StartAppActivity extends AppCompatActivity {
                        "on the nearest stations screen. Selecting a station from the " +
                        "list will open up directions to the chosen station from your current location" +
                        "on the map.\"");
+               return true;
            }
-
-
     }
 
     /**
@@ -82,19 +85,26 @@ public class StartAppActivity extends AppCompatActivity {
      */
 
     public void click(View v){
-        if(permissions) {
+        if(checkPermissions()) {
             startNearestStationList();
         }
     }
 
+    /**
+     * Starts nearest station list activity
+     */
     private void startNearestStationList(){
         Intent startIntent = new Intent(getApplicationContext(), NearestStationListActivity.class);
         startActivity(startIntent);
     }
 
-
+    /**
+     * Opens new activity in app settings if
+     * button is clicked for changing permissions
+     * @param view
+     */
     public void changePermissions(View view) {
-        if(!permissions) {
+        if(!checkPermissions()) {
             Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
             startActivity(intent);
         }

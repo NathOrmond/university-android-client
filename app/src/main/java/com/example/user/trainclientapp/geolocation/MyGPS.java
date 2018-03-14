@@ -42,6 +42,9 @@ public class MyGPS extends NearestStationListActivity {
             refreshUpdate();
     }
 
+    /**
+     * runs methods and refreshes device location
+     */
     public void refreshUpdate() {
         initialiseListener();
         checkForPermissions();
@@ -82,7 +85,7 @@ public class MyGPS extends NearestStationListActivity {
     /**
      * Checks android GPS Location permissions have been granted to app
      */
-    public void checkForPermissions(){
+    public boolean checkForPermissions(){
 
             if (ActivityCompat.checkSelfPermission(parent, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
                     ActivityCompat.checkSelfPermission(parent, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -92,9 +95,10 @@ public class MyGPS extends NearestStationListActivity {
                         Manifest.permission.INTERNET,
                 }, 10);
 
-                return;
+                return false;
             } else {
                 configureUpdateRequest();
+                return true;
             }
     }
 

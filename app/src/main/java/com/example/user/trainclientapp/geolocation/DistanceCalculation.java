@@ -12,7 +12,7 @@ public class DistanceCalculation {
 
 
     /**
-     * Calculates distance in km between two positions on the earths surface
+     * Calculates distance in km between two positions on a spherical surface
      *
      * @param lat1
      * @param lon1

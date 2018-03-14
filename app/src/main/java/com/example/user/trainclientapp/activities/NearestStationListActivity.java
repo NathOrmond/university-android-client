@@ -44,9 +44,18 @@ public class NearestStationListActivity extends AppCompatActivity {
         activityMethod();
     }
 
+    /**
+     * refreshes location when app is restarted
+     */
     @Override
     protected void onRestart() {
         super.onRestart();
+        activityMethod();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         activityMethod();
     }
 
@@ -159,8 +168,8 @@ public class NearestStationListActivity extends AppCompatActivity {
     }
 
     /**
-     * Starts a new Map activity, sends train station array list
-     * and my latitude and longitude positions
+     * Starts a new Map activity, sends clicked train station anme
+     * and latitude and longitude
      */
     private void startNewMap(Double targetLatitude, Double targetLongitude, String targetName){
         Intent intent = new Intent(getApplicationContext(), MapActivity.class);

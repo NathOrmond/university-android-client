@@ -35,21 +35,27 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_map);
         myGPS = new MyGPS(this);
-
-        station = new TrainStation();
-        Intent intent = this.getIntent();
-        station.setStationLat(intent.getDoubleExtra("TARGET_LATITUDE", myGPS.getMyLat()));
-        station.setStationLong(intent.getDoubleExtra("TARGET_LONGITUDE", myGPS.getMyLong()));
-        station.setStationName(intent.getStringExtra("TARGET_NAME"));
-
-        Log.i("SUCCESS", "ARRAY_LIST");
-
-
+        getDataForTarget();
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 1, 1, this);
     }
+
+    private void getDataForTarget(){
+        station = new TrainStation();
+        Intent intent = this.getIntent();
+        station.setStationLat(intent.getDoubleExtra("TARGET_LATITUDE", myGPS.getMyLat()));
+        station.setStationLong(intent.getDoubleExtra("TARGET_LONGITUDE", myGPS.getMyLong()));
+        station.setStationName(intent.getStringExtra("TARGET_NAME"));
+        Log.i("DATA_ACTIVITY_PASS", "array list succesfully passed from previous activity");
+    }
+
+    /**
+     * sets current location and target location on google maps API,
+     * Creates marker with train station name and zooms map to location.
+     * @param googleMap
+     */
 
     @SuppressLint("MissingPermission")
     @Override
@@ -59,7 +65,7 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
         currentLocation = new LatLng (myGPS.getMyLat(),myGPS.getMyLong());
         targetLocation = new LatLng(station.getStationLat(),station.getStationLong());
-        googleMap.addMarker(new MarkerOptions().position(targetLocation).title(station.getStationName()));
+        googleMap.addMarker(new MarkerOptions().position(targetLocation).title(station.getStationName() + "Train Station"));
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 13.0f));
 
 
@@ -67,19 +73,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-
-//        map.clear();
-//        currentLocation = new LatLng(location.getLatitude(), location.getLongitude());
-//
-//
-//        MarkerOptions markerOptions = new MarkerOptions();
-//        markerOptions.position(currentLocation);
-//        markerOptions.title("My Location");
-//
-//        map.addMarker(markerOptions);
-//
-//        float zoomLevel = 16.0f;
-//        map.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, zoomLevel));
 
     }
 

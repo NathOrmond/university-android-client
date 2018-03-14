@@ -29,7 +29,12 @@ public class URLASyncTask extends AsyncTask<String, Integer, String> {
         this.lng = myLong;
     }
 
-
+    /**
+     * connects to server and retrieves data for a certain latitude and longitude search
+     *
+     * @param strings
+     * @return serverData
+     */
     @Override
     protected String doInBackground(String... strings) {
         HttpURLConnection connection = null;
