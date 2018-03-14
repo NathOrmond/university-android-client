@@ -1,6 +1,5 @@
 package com.example.user.trainclientapp.activities;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 import com.example.user.trainclientapp.R;
 import com.example.user.trainclientapp.geolocation.MyGPS;
 import com.example.user.trainclientapp.listdisplay.StationsAdapter;
+import com.example.user.trainclientapp.mapmethods.NewMapDataXfer;
 import com.example.user.trainclientapp.servernetworking.URLASyncTask;
 import com.example.user.trainclientapp.stationlist.StationListFactory;
 import com.example.user.trainclientapp.stationlist.TrainStation;
@@ -142,10 +142,12 @@ public class NearestStationListActivity extends AppCompatActivity {
      * Populates list with the most recent data
      * Sets list item listener for click
      */
+    NearestStationListActivity activity;
     private void  updateList(StationsAdapter adapter, ListView listView){
         adapter = new StationsAdapter(this, android.R.layout.simple_list_item_1, trainStationArrayList);
         this.adapter = adapter;
         listView.setAdapter(adapter);
+        this.activity = this;
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -158,8 +160,8 @@ public class NearestStationListActivity extends AppCompatActivity {
                 passLat = Double.parseDouble(latitude);
                 passLong = Double.parseDouble(longitude);
 
-                startNewMap(passLat,passLong,stationName);
-
+                NewMapDataXfer dataXfer = new NewMapDataXfer();
+                dataXfer.startNewMap(activity , passLat, passLong, stationName);
 
             }
         });
@@ -167,16 +169,10 @@ public class NearestStationListActivity extends AppCompatActivity {
         this.listView = listView;
     }
 
-    /**
-     * Starts a new Map activity, sends clicked train station anme
-     * and latitude and longitude
-     */
-    private void startNewMap(Double targetLatitude, Double targetLongitude, String targetName){
-        Intent intent = new Intent(getApplicationContext(), MapActivity.class);
-        intent.putExtra("TARGET_LATITUDE", targetLatitude);
-        intent.putExtra("TARGET_LONGITUDE", targetLongitude);
-        intent.putExtra("TARGET_NAME", targetName);
-        startActivity(intent);
-    }
+    //ToDo
+    //Button with onCLick() to show all train station locations on app.
+    //Map intent for said button.
+
+
 
 }
