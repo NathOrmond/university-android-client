@@ -1,5 +1,6 @@
 package com.example.user.trainclientapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -152,7 +153,8 @@ public class NearestStationListActivity extends AppCompatActivity {
      * and my latitude and longitude positions
      */
     private void startNewMap(){
-
+        Intent startIntent = new Intent(getApplicationContext(), MapActivity.class);
+        startActivity(startIntent);
     }
 
 }
