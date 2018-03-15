@@ -46,9 +46,11 @@ public class NewMapDataXfer {
      */
     public void startNewMap(NearestStationListActivity activity, Double targetLatitude, Double targetLongitude, String targetName) {
         Intent intent = new Intent(activity.getApplicationContext(), MapActivity.class);
+        listLength = 1;
         intent.putExtra("TARGET_LATITUDE", targetLatitude);
         intent.putExtra("TARGET_LONGITUDE", targetLongitude);
         intent.putExtra("TARGET_NAME", targetName);
+        intent.putExtra("LIST_LENGTH", listLength);
         mapContentType = "SHOW_SINGLE";
         intent.putExtra("MAP_CONTENT_TYPE", mapContentType);
         activity.startActivity(intent);
@@ -62,11 +64,12 @@ public class NewMapDataXfer {
      * @param targetLongitudes
      * @param targetNames
      */
-    public void startNewMap(NearestStationListActivity activity, Double[] targetLatitudes, Double[] targetLongitudes, String[] targetNames) {
+    public void startNewMap(NearestStationListActivity activity, double[] targetLatitudes, double[] targetLongitudes, String[] targetNames) {
         Intent intent = new Intent(activity.getApplicationContext(), MapActivity.class);
         intent.putExtra("TARGET_LATITUDES", targetLatitudes);
         intent.putExtra("TARGET_LONGITUDES", targetLongitudes);
         intent.putExtra("TARGET_NAMES", targetNames);
+        intent.putExtra("LIST_LENGTH", listLength);
         mapContentType = "SHOW_ALL";
         intent.putExtra("MAP_CONTENT_TYPE", mapContentType);
         activity.startActivity(intent);
@@ -77,8 +80,8 @@ public class NewMapDataXfer {
      *
      * @return getLatitudes[]
      */
-        public Double[] getLatitudes () {
-            Double[] getLatitudes ={};
+        public double[] getLatitudes () {
+            double[] getLatitudes = new double[listLength];
             for(int i = 0; i < listLength; i++) {
                 station = stationArrayList.get(i);
                 getLatitudes[i] = station.getStationLat();
@@ -91,8 +94,8 @@ public class NewMapDataXfer {
      *
      * @return getLongitudes
      */
-    public Double[] getLongitudes () {
-        Double[] getLongitudes = {};
+    public double[] getLongitudes () {
+        double[] getLongitudes = new double[listLength];
             for(int i = 0; i < listLength; i++) {
                 station = stationArrayList.get(i);
                 getLongitudes[i] = station.getStationLong();
@@ -107,11 +110,13 @@ public class NewMapDataXfer {
      */
 
     public String[] getStationNames(){
-        String[] getStationNames = {};
+        String[] getStationNames = new String[listLength];
             for(int i = 0; i < listLength; i++) {
                 station = stationArrayList.get(i);
                 getStationNames[i] = station.getStationName();
             }
         return getStationNames;
         }
+
+
 }

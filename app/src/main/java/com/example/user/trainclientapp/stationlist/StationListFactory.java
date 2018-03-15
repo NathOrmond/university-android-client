@@ -20,6 +20,31 @@ public class StationListFactory {
         formatSrvData(serverRawData, myLat, myLong);
     }
 
+    public StationListFactory(int list_Length, Double stationLat, Double stationLong, String targetName){
+        TrainStation station = new TrainStation();
+        trainStationArrayList = new ArrayList<TrainStation>();
+        for(int i = 0; i < list_Length; i++) {
+            station.setStationLat(stationLat);
+            station.setStationLong(stationLong);
+            station.setStationName(targetName);
+            trainStationArrayList.add(station);
+        }
+    }
+
+
+    public StationListFactory(int list_length, double[] target_latitudes, double[] target_longitudes, String[] target_names) {
+        TrainStation station = new TrainStation();
+        trainStationArrayList = new ArrayList<TrainStation>();
+
+        for(int i = 0; i < list_length; i++) {
+            station.setStationLat(target_latitudes[i]);
+            station.setStationLong(target_longitudes[i]);
+            station.setStationName(target_names[i]);
+            trainStationArrayList.add(station);
+        }
+    }
+
+
     /**
      * Creates an ArrayList<TrainStation>() populated with raw server Data
      *
@@ -43,6 +68,7 @@ public class StationListFactory {
         this.trainStationArrayList = stationList;
 
     }
+
 
     /**
      * @return a populated ArrayList<TrainStation>()

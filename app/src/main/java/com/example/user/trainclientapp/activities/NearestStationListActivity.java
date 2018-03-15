@@ -171,7 +171,7 @@ public class NearestStationListActivity extends AppCompatActivity {
      * Action Listener for button click
      * Starts new Map intent and passes data for each train station location
      * to new map intent
-     * 
+     *
      * @param view
      */
     public void showAllOnMapClick(View view) {
