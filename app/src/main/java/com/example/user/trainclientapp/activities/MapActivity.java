@@ -47,18 +47,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
 
     }
 
-    private void determineMapSetup(){
-        StationListFactory stationListFactory;
-        if(MAP_CONTENT_TYPE.equals("SHOW_ALL")) {
-            stationListFactory = new StationListFactory(LIST_LENGTH, intent.getDoubleArrayExtra("TARGET_LATITUDES"), intent.getDoubleArrayExtra("TARGET_LONGITUDES"), intent.getStringArrayExtra("TARGET_NAMES"));
-
-        } else {
-            stationListFactory = new StationListFactory(LIST_LENGTH, intent.getDoubleExtra("TARGET_LATITUDE", myGPS.getMyLat()), intent.getDoubleExtra("TARGET_LONGITUDE", myGPS.getMyLong()),intent.getStringExtra("TARGET_NAME"));
-        }
-        stationArrayList = stationListFactory.getTrainStationArrayList();
-        Log.i("DATA_ACTIVITY_PASS", "array list succesfully passed from previous activity");
-    }
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -70,6 +58,19 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         super.onRestart();
         determineMapSetup();
     }
+
+    private void determineMapSetup(){
+        StationListFactory stationListFactory;
+        if(MAP_CONTENT_TYPE.equals("SHOW_ALL")) {
+            stationListFactory = new StationListFactory(LIST_LENGTH, intent.getDoubleArrayExtra("TARGET_LATITUDES"), intent.getDoubleArrayExtra("TARGET_LONGITUDES"), intent.getStringArrayExtra("TARGET_NAMES"));
+
+        } else {
+            stationListFactory = new StationListFactory(LIST_LENGTH, intent.getDoubleExtra("TARGET_LATITUDE", myGPS.getMyLat()), intent.getDoubleExtra("TARGET_LONGITUDE", myGPS.getMyLong()),intent.getStringExtra("TARGET_NAME"));
+        }
+        stationArrayList = stationListFactory.getTrainStationArrayList();
+        Log.i("DATA_ACTIVITY_PASS", "array list succesfully passed from previous activity");
+    }
+    
 
     /**
      * sets current location and target location on google maps API,
