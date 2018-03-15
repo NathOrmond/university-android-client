@@ -14,7 +14,10 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.OnMapReadyCallback;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
+import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
@@ -90,24 +93,38 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         map = googleMap;
         map.setMyLocationEnabled(true);
-
-        currentLocation = new LatLng (myGPS.getMyLat(),myGPS.getMyLong());
-
+        List<Marker> markers = new ArrayList<Marker>();
         targetLocations = new ArrayList<LatLng>();
 
+        currentLocation = new LatLng (myGPS.getMyLat(),myGPS.getMyLong());
+        Marker myLocationMarker = googleMap.addMarker(new MarkerOptions().position(currentLocation).icon(BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_BLUE)).title("MyLocation"));
+        markers.add(myLocationMarker);
 
+
+
+        Marker stationMarker;
         for(int i = 0; i < list_length; i++) {
             TrainStation station = stations.get(i);
             LatLng targetLocation = new LatLng(station.getStationLat(),station.getStationLong());
             targetLocations.add(targetLocation);
-            googleMap.addMarker(new MarkerOptions().position(targetLocation).title(station.getStationName() + " Train Station"));
+            stationMarker = googleMap.addMarker(new MarkerOptions().position(targetLocation).title(station.getStationName() + " Train Station"));
+            markers.add(stationMarker);
+        }
+
+        if(map_type.equals("SHOW_ALL")) {
+            LatLngBounds.Builder builder = new LatLngBounds.Builder();
+            for (Marker marker : markers) {
+                builder.include(marker.getPosition());
+            }
+            LatLngBounds bounds = builder.build();
+            int padding = 100;
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngBounds(bounds, padding));
+        } else {
+            zoom_level = 11.0f;
+            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(currentLocation,zoom_level));
         }
 
 
-        //ToDo
-        //Zoom Level Calculations
-
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, zoom_level));
     }
 
 
