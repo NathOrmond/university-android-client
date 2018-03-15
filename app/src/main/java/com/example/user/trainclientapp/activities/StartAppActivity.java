@@ -96,9 +96,7 @@ public class StartAppActivity extends AppCompatActivity {
      * @param view
      */
     public void changePermissions(View view) {
-        if(!checkPermissions()) {
             Intent intent = new Intent(Settings.ACTION_APPLICATION_SETTINGS);
             startActivity(intent);
-        }
-    }
+           }
 }
