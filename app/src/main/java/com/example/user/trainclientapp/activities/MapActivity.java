@@ -42,7 +42,6 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         list_length = intent.getIntExtra("LIST_LENGTH", 1);
         map_type = intent.getStringExtra("MAP_CONTENT_TYPE");
         determineMapSetup();
-        zoom_level = 11.0f;
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -104,6 +103,9 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
             googleMap.addMarker(new MarkerOptions().position(targetLocation).title(station.getStationName() + " Train Station"));
         }
 
+
+        //ToDo
+        //Zoom Level Calculations
 
         googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, zoom_level));
     }

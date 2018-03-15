@@ -6,6 +6,6 @@ package com.example.user.trainclientapp.mapmethods;
 
 public class AppropriateZoomLevelCalculator {
 
-    
+    //ToDo
 
 }
