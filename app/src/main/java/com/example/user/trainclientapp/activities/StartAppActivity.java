@@ -30,20 +30,12 @@ public class StartAppActivity extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onRestart() {
-        super.onRestart();
-        if(checkPermissions()) {
-            startNearestStationList();
-        }
-    }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if(checkPermissions()) {
-            startNearestStationList();
-        }
+        checkPermissions();
+
     }
 
     /**

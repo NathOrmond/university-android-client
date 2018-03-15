@@ -1,5 +1,6 @@
 package com.example.user.trainclientapp.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -12,7 +13,6 @@ import android.widget.TextView;
 import com.example.user.trainclientapp.R;
 import com.example.user.trainclientapp.geolocation.MyGPS;
 import com.example.user.trainclientapp.listdisplay.StationsAdapter;
-import com.example.user.trainclientapp.mapmethods.NewMapDataXfer;
 import com.example.user.trainclientapp.servernetworking.URLASyncTask;
 import com.example.user.trainclientapp.stationlist.StationListFactory;
 import com.example.user.trainclientapp.stationlist.TrainStation;
@@ -30,7 +30,7 @@ public class NearestStationListActivity extends AppCompatActivity {
     int listLength;
     MyGPS myGPS;
     Double myLatitude, myLongitude;
-    TextView serverDowned;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +39,7 @@ public class NearestStationListActivity extends AppCompatActivity {
         refreshButton = (Button) findViewById(R.id.refreshButton);
         listView = (ListView) findViewById(R.id.stationList);
         listLength = 5;
-        serverDowned = (TextView) findViewById(R.id.serverDowned);
-        serverDowned.setVisibility(View.INVISIBLE);
+
         activityMethod();
     }
 
@@ -117,16 +116,12 @@ public class NearestStationListActivity extends AppCompatActivity {
 
         if(newData != null) {
             this.srvData =  newData;
-            serverDowned.setVisibility(View.INVISIBLE);
-            listView.setVisibility(View.VISIBLE);
-            Log.i("SERVER_DATA", srvData);
+                        Log.i("SERVER_DATA", srvData);
         } else {
             Log.w("SERVER_DATA", "data is null, server error");
-            listView.setVisibility(View.INVISIBLE);
-            serverDowned.setVisibility(View.VISIBLE);
-        }
-            createStationList();
-            updateList(adapter, listView);
+               }
+        createStationList();
+        updateList(adapter, listView);
     }
 
     /**
@@ -160,13 +155,24 @@ public class NearestStationListActivity extends AppCompatActivity {
                 passLat = Double.parseDouble(latitude);
                 passLong = Double.parseDouble(longitude);
 
-                NewMapDataXfer dataXfer = new NewMapDataXfer();
-                dataXfer.startNewMap(activity , passLat, passLong, stationName);
+                startNewMap(activity , passLat, passLong, stationName);
 
             }
         });
 
         this.listView = listView;
+    }
+
+    public void startNewMap(NearestStationListActivity activity, Double targetLatitude, Double targetLongitude, String targetName) {
+        Intent intent = new Intent(activity.getApplicationContext(), MapActivity.class);
+        intent.putExtra("TARGET_LATITUDE", targetLatitude);
+        intent.putExtra("TARGET_LONGITUDE", targetLongitude);
+        intent.putExtra("TARGET_NAME", targetName);
+        activity.startActivity(intent);
+    }
+
+    public void showAllOnMapClick(View view) {
+        Log.i("CLICK_EVENT", "show all on map");
     }
 
     //ToDo

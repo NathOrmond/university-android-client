@@ -81,9 +81,11 @@ public class StationsAdapter extends ArrayAdapter<TrainStation> {
 
             holder.display_station_name.setText(stationList.get(position).getStationName());
             holder.display_station_distance.setText(distanceDisplayForm.displayProper(stationList.get(position).getDistanceNum()));
+
             holder.display_station_latitude.setText(Double.toString(stationList.get(position).getStationLat()));
             holder.display_station_longitude.setText(Double.toString(stationList.get(position).getStationLong()));
-
+            holder.display_station_latitude.setVisibility(View.INVISIBLE);
+            holder.display_station_longitude.setVisibility(View.INVISIBLE);
 
         } catch (Exception e) {
 

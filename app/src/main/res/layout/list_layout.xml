@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="381dp"
-        android:layout_height="88dp"
-        android:padding="6dip">
+        android:layout_width="382dp"
+        android:layout_height="75dp"
+        android:padding="6dip"
+        tools:layout_editor_absoluteX="-1dp">
 
         <TextView
             android:id="@+id/distance"
@@ -34,22 +37,20 @@
             android:id="@+id/latitude"
             android:layout_width="75dip"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_alignParentStart="true"
             android:layout_below="@+id/distance"
             android:text="lat"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/longitude"
             android:layout_width="75dip"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:layout_below="@+id/distance"
-            android:layout_marginStart="18dp"
+            android:layout_marginStart="22dp"
             android:layout_toEndOf="@+id/latitude"
             android:text="lng"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
     </RelativeLayout>
 
