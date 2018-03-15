@@ -18,17 +18,19 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class MapActivity extends AppCompatActivity implements OnMapReadyCallback{
 
-    GoogleMap map;
-    Intent intent;
-    String MAP_CONTENT_TYPE;
-    int LIST_LENGTH;
+    private GoogleMap map;
+    private Intent intent;
+    String map_type;
+    int list_length;
     LatLng currentLocation;
     MyGPS myGPS;
-    ArrayList<TrainStation> stationArrayList;
-    ArrayList<LatLng> targetLocations;
+    List<TrainStation> stations;
+    List<LatLng> targetLocations;
+    float zoom_level;
 
     @SuppressLint("MissingPermission")
     @Override
@@ -37,11 +39,10 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_map);
         myGPS = new MyGPS(this);
         intent = this.getIntent();
-        LIST_LENGTH = intent.getIntExtra("LIST_LENGTH", 1);
-        MAP_CONTENT_TYPE = intent.getStringExtra("MAP_CONTENT_TYPE");
-
+        list_length = intent.getIntExtra("LIST_LENGTH", 1);
+        map_type = intent.getStringExtra("MAP_CONTENT_TYPE");
         determineMapSetup();
-
+        zoom_level = 11.0f;
         MapFragment mapFragment = (MapFragment) getFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
@@ -59,18 +60,25 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         determineMapSetup();
     }
 
+    /**
+     * Determines whether map has been started to create a single
+     * selected TrainStation() or all closes TrainStation()'s
+     */
     private void determineMapSetup(){
         StationListFactory stationListFactory;
-        if(MAP_CONTENT_TYPE.equals("SHOW_ALL")) {
-            stationListFactory = new StationListFactory(LIST_LENGTH, intent.getDoubleArrayExtra("TARGET_LATITUDES"), intent.getDoubleArrayExtra("TARGET_LONGITUDES"), intent.getStringArrayExtra("TARGET_NAMES"));
+        Log.i("MAP_TYPE", map_type);
+
+        if(map_type.equals("SHOW_ALL")) {
+            stationListFactory = new StationListFactory(list_length, intent.getDoubleArrayExtra("TARGET_LATITUDES"), intent.getDoubleArrayExtra("TARGET_LONGITUDES"), intent.getStringArrayExtra("TARGET_NAMES"));
 
         } else {
-            stationListFactory = new StationListFactory(LIST_LENGTH, intent.getDoubleExtra("TARGET_LATITUDE", myGPS.getMyLat()), intent.getDoubleExtra("TARGET_LONGITUDE", myGPS.getMyLong()),intent.getStringExtra("TARGET_NAME"));
+            Log.i("DATA_ACTIVITY_PASS", "array list succesfully passed from previous activity");
+            stationListFactory = new StationListFactory(list_length, intent.getDoubleExtra("TARGET_LATITUDE", myGPS.getMyLat()), intent.getDoubleExtra("TARGET_LONGITUDE", myGPS.getMyLong()),intent.getStringExtra("TARGET_NAME"));
         }
-        stationArrayList = stationListFactory.getTrainStationArrayList();
+        stations = stationListFactory.getTrainStationArrayList();
         Log.i("DATA_ACTIVITY_PASS", "array list succesfully passed from previous activity");
     }
-    
+
 
     /**
      * sets current location and target location on google maps API,
@@ -87,19 +95,17 @@ public class MapActivity extends AppCompatActivity implements OnMapReadyCallback
         currentLocation = new LatLng (myGPS.getMyLat(),myGPS.getMyLong());
 
         targetLocations = new ArrayList<LatLng>();
-        LatLng targetLocation;
-        TrainStation station;
 
-        for(int i = 0; i < LIST_LENGTH; i++) {
-            station = stationArrayList.get(i);
-            targetLocation = new LatLng(station.getStationLat(),station.getStationLong());
+
+        for(int i = 0; i < list_length; i++) {
+            TrainStation station = stations.get(i);
+            LatLng targetLocation = new LatLng(station.getStationLat(),station.getStationLong());
             targetLocations.add(targetLocation);
-            googleMap.addMarker(new MarkerOptions().position(targetLocation).title(station.getStationName() + "Train Station"));
-
+            googleMap.addMarker(new MarkerOptions().position(targetLocation).title(station.getStationName() + " Train Station"));
         }
 
 
-        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, 13.0f));
+        googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(currentLocation, zoom_level));
     }
 
 
