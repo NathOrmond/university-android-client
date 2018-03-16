@@ -60,8 +60,6 @@ public class MyGPS extends NearestStationListActivity {
         listener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
-                setMyLat(location.getLatitude());
-                setMyLong(location.getLongitude());
             }
 
             @Override
